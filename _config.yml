@@ -17,7 +17,7 @@ sidebar-avatar: Resources/Config/liyizhen_blog_avatar.jpeg     # use absolute UR
 # SNS settings
 RSS: false
 weibo_username:     http://weibo.com/robertlyz  
-zhihu_username:     zhihu.com/people/hao-yu-xing-chen   
+zhihu_username:     https://www.zhihu.com/people/hao-yu-xing-chen/activities   
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
@@ -66,13 +66,9 @@ ga_domain: liyizhen.top               # 默认的是 auto, 这里我是自定义
 featured-tags: true                     # 是否使用首页标签
 featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
 
-
-
 # Progressive Web Apps
 chrome-tab-theme-color: "#000000"
 service-worker: true
-
-
 
 # Friends
 friends: [
