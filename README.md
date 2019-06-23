@@ -3,7 +3,7 @@
 一直想拥有自己的一个自定义博客，作为一名技术开发者深感惭愧，从业5年却没有将自己的沉淀经历记录，本博客诞生于2019.06.23，后续我会将自己以前的技术总结以及职业、生活感想持续的更新到博客上。
 
 ## 致谢
-1. [Hux]https://github.com/qiubaiying/qiubaiying.github.io，感谢该作者。
+1. [Qiubaiying](https://github.com/qiubaiying/qiubaiying.github.io)的，感谢该作者。
 2. [Hux](https://github.com/Huxpro/huxpro.github.io) fork 的, 感谢这个作者。 
 2. 感谢 Jekyll、Github Pages 和 Bootstrap!
 
