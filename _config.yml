@@ -16,7 +16,7 @@ sidebar-avatar: Resources/Config/liyizhen_blog_avatar.jpeg     # use absolute UR
 
 # SNS settings
 RSS: false
-weibo_username:     http://weibo.com/robertlyz
+weibo_username:     robertlyz
 zhihu_username:     hao-yu-xing-chen
 
 # Build settings
