@@ -16,8 +16,8 @@ sidebar-avatar: Resources/Config/liyizhen_blog_avatar.jpeg     # use absolute UR
 
 # SNS settings
 RSS: false
-weibo_username:     liyi_zhen@126.com
-zhihu_username:     robertyzli
+weibo_username:     liyi_zhen@126.com  
+zhihu_username:     robertyzli   
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
