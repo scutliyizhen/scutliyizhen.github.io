@@ -5,7 +5,7 @@
 ## 致谢
 1. [Qiubaiying](https://github.com/qiubaiying/qiubaiying.github.io)的，感谢该作者。
 2. [Hux](https://github.com/Huxpro/huxpro.github.io) fork 的, 感谢这个作者。 
-2. 感谢 Jekyll、Github Pages 和 Bootstrap!
+3. 感谢 Jekyll、Github Pages 和 Bootstrap!
 
 ## License
 
