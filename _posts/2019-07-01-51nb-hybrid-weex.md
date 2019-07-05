@@ -1,14 +1,12 @@
 ---
 layout:     post
-title:      跨平台架构演进  
+title:      跨平台架构演进(梳理中......)  
 date:       2019-07-01
 author:     robertyzli
 header-img: Resources/Posts/liyizhen_blog_cross_platform_bg.jpg
 catalog: true
 tags:
-    - Hybrid
-    - Weex
-    - Swift
+    - Hybrid/Weex/Swift
     - 跨平台
     - 架构演进 
 ---
