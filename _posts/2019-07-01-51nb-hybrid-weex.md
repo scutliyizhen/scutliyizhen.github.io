@@ -50,23 +50,15 @@ tags:
       white-space: nowrap; 
   }
   /* 指定列宽度 */
-  table th:nth-of-type(2) {
+  /*table th:nth-of-type(2) {
     	width: 200px;
      white-space: nowrap;
-  }
+  }*/
   </style>  
   
-  | 表格左对齐 | 表格居中对齐 | 表格右对齐 |
-  |:--|:--:|--:|
-  | 表格内容 | 表格内容表格内容表格内容 <BR> 表格内容表格内容表格内容<BR>表格内容表格内容表格内容<BR>表格内容表格内容表格内容 | 表格内容表格内容表格内容 |
-  | 表格内容 | 表格内容表格内容表格内容 | 表格内容表格内容表格内容 |
-  | 表格内容 |  | 表格内容表格内容表格内容 |
-  | 表格内容 | 表格内容表格内容表格内容 | 表格内容表格内容表格内容 |
-
-
 <table>
     <thead>
-        <tr bgcolor="#CC99FF">
+        <tr>
             <th>Hybrid架构图</th>
             <th>混合开发通信逻辑架构</th>
             <th>备注</th>
@@ -74,7 +66,7 @@ tags:
     </thead>
     <tbody>
         <tr>
-            <td bgcolor="Pink"><img src="/Resources/Posts/liyizhen_blog_cross_platform_old.png"/></td>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_old.png"/></td>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_old_pg.png"/></td>
             <td>架构图是我2017年刚进公司的时候在公司的wiki上翻到的，对应的基础库代码也就是早期的WebAppKit。</td>
         </tr>
