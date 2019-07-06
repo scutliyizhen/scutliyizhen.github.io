@@ -35,6 +35,11 @@ tags:
       background: #ECF2F9; /*背景色*/
       white-space: nowrap; /*表头内容强制在一行显示*/
   }
+  
+   table td {
+      text-align: center !important; /*内容居中，加上 !important 避免被 Markdown 样式覆盖*/
+      font-size:14px;font-family:"Times New Roman", Times, serif !important;
+  }
 	
   /* 隔行变色 */
   table tbody tr:nth-child(2n) {
