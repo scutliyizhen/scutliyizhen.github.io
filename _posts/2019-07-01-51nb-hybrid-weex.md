@@ -55,8 +55,7 @@ tags:
      white-space: nowrap;
   }*/
   </style>  
-
-> 这是第一篇技术文章，后续计划先将已经阅读的Weex源码进行剖析分享给大家，例如从前端VM（虚拟Dom，Vue Dom）到客户端虚拟Dom（RenderObject）的整个渲染过程分析、线程模型设计、架构分析、性能优化等。    
+   
 > 本文主要介绍51信用卡跨平台架构的演进情况，对混合开发模式存在的一些共性问题给出解决方案。   
 
 &ensp;&ensp;&ensp;&ensp;自2015年Facebook开源首个跨平台UI框架<font style="color:#0F7290">ReactNative(RN)</font>，到2016年阿里开源<font style="color:#0F7290">Weex</font>，2017年Google推出<font style="color:#0F7290">Flutter</font>跨平台UI框架。跨平台解决方案在移动端正处于蓬勃发展的状态，而目前大部分企业基本都是原生与跨平台的混合开发模式，无论是业务需要还是移动平台技术的差异特性，都很难做到完全跨平台。然而，混合开发模式下的开发会面临更多的问题。
@@ -139,17 +138,20 @@ tags:
 
 
 ####  1.Hybrid容器    
-<font style="color:#0F7290">UI层</font>WebView（WK/UI）、组件（加载loading、异常错误、进度条等）、Controller、WebView接口扩展   
-<font style="color:#0F7290">Engine层</font>分为WKEngine、UIEngine，主要处理Web容器与离线、监控、注入脚本、路由、PGCore等模块的交换核心逻辑。  
-<font style="color:#0F7290">注入脚本模块</font>区分WKWebView注入脚本、UIWebView注入脚本（与离线技术方案相似，涉及业务敏感性所以不透露太多）。  
-<font style="color:#0F7290">Data层</font>处理WebUA与Cookie的问题。
+- <font style="color:#0F7290">UI层</font>WebView（WK/UI）、组件（加载loading、异常错误、进度条等）、Controller、WebView接口扩展。     
+- <font style="color:#0F7290">Engine层</font>分为WKEngine、UIEngine，主要处理Web容器与离线、监控、注入脚本、路由、PGCore等模块的交换核心逻辑。   
+- <font style="color:#0F7290">注入脚本模块</font>区分WKWebView注入脚本、UIWebView注入脚本（与离线技术方案相似，涉及业务敏感性所以不透露太多）。   
+- <font style="color:#0F7290">Data层</font>处理WebUA与Cookie的问题。  
 
-####  2.Weex容器   
+####  2.Weex容器    
 
-####  3.头部容器  
+####  3.头部容器   
 
-####  4.离线模块
+####  4.离线模块 
 
-####  5.EventBus  
+####  5.EventBus   
 
-###  四.PG设计演进
+###  四.PG设计演进  
+
+
+> 这是第一篇技术文章，后续计划先将已经阅读的Weex源码进行剖析分享给大家，例如从前端VM（虚拟Dom，Vue Dom）到客户端虚拟Dom（RenderObject）的整个渲染过程分析、线程模型设计、架构分析、性能优化等。 
