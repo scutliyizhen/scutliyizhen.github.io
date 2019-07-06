@@ -82,21 +82,21 @@ tags:
 </table>
 
 #### （一）功能点概况      
-<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;1.主要包含的功能点：</font>
+<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;1.主要包含的功能点</font>
 &ensp;&ensp;&ensp;&ensp;通信、Hybrid API、Event、URL配置、调试工具、UniversalLink、容器UI。    
-<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;2.不包含的功能模块：</font>
+<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;2.不包含的功能模块</font>
 &ensp;&ensp;&ensp;&ensp;离线、监控。 
 
 #### （二）面临的问题主要有      
-<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;1.功能模块划分不清晰：</font>
+<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;1.功能模块划分不清晰</font>
 &ensp;&ensp;&ensp;&ensp;以上所有的功能点都放在WebAppKit基础库中，并且在基础库中没有合理的划分模块。    
-<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;2.视图容器逻辑不清晰：</font>
+<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;2.视图容器逻辑不清晰</font>
 &ensp;&ensp;&ensp;&ensp;各种UI组件初始化、WebView（WK/UI）配置以及回调、导航控制逻辑等等都放在WebController中，各种逻辑通过不断的添加属性来区分，当时该文件有1000多行的代码，对于后续扩展监控、离线、注入脚本则会带来很大的困难，不好维护。       
-<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;3.接口不可控问题：</font>
+<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;3.接口不可控问题</font>
 &ensp;&ensp;&ensp;&ensp;比如在视图中WebView完全暴露，而子类可以在任意时机操作WebView，引入不可控因素。     
 <font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;4.WebKit可扩展性、耦合性问题：</font>
 &ensp;&ensp;&ensp;&ensp;业务侧只能使用继承的方式使用基础WebController，不支持组合的方式，并且不能单独使用WebView。比如业务同学单独使用WebView做运营广告位，只能使用野路子的方式，操作WebController中的View。      
-<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;5. PG(原生API)设计问题：</font>
+<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;5. PG(原生API)设计问题</font>
 &ensp;&ensp;&ensp;&ensp;线程安全、API与框架稳定性问题、可移植性与可扩展性问题、运行时安全问题等等，在PG设计演进中会详细介绍。   
 
 ###  二.跨平台架构    
