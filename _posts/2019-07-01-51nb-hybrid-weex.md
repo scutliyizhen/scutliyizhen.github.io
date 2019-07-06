@@ -11,13 +11,6 @@ tags:
     - 架构演进 
 ---
 
-> 本文主要介绍51信用卡跨平台架构的演进情况，对混合开发模式存在的一些共性问题给出解决方案。
-
-<font style="color:#0F7290">&ensp;&ensp;&ensp;&ensp;自2015年Facebook开源首个跨平台UI框架ReactNative(RN)，到2016年阿里开源Weex，2017年Google推出Flutter跨平台UI框架。跨平台解决方案在移动端正处于蓬勃发展的状态，而目前大部分企业基本都是原生与跨平台的混合开发模式，无论是业务需要还是移动平台技术的差异特性，都很难做到完全跨平台。因此，混合开发模式下的开发会面临更多的问题。</font>
-
-&ensp;&ensp;&ensp;&ensp;2017年我进入51信用卡，那时客户端与前端使用的是Hybrid混合开发模式。在51的两年基本上就是处于不断填坑状态，开始接触WebKit的时候Hybrid本身并没有架构的概念，很多代码基本都是以功能逻辑融合在一起，每当新增需求都很困难担心改动点是否全面有遗漏；而当Weex跨平台接入之后又依赖Hybrid，出现了运行时安全、耦合依赖等问题，本文会详细阐述遇到的实际问题以及是如何优化架构解决问题。
-
-###   一.早期Hybrid架构 
 <style>
   table {
       width: 100%; /*表格宽度*/
@@ -62,6 +55,14 @@ tags:
      white-space: nowrap;
   }*/
   </style>  
+
+> 本文主要介绍51信用卡跨平台架构的演进情况，对混合开发模式存在的一些共性问题给出解决方案。
+
+&ensp;&ensp;&ensp;&ensp;自2015年Facebook开源首个跨平台UI框架<font style="color:#0F7290">ReactNative(RN)</font>，到2016年阿里开源<font style="color:#0F7290">Weex</font>，2017年Google推出<font style="color:#0F7290">Flutter</font>跨平台UI框架。跨平台解决方案在移动端正处于蓬勃发展的状态，而目前大部分企业基本都是原生与跨平台的混合开发模式，无论是业务需要还是移动平台技术的差异特性，都很难做到完全跨平台。而，混合开发模式下的开发会面临更多的问题。
+
+&ensp;&ensp;&ensp;&ensp;2017年我进入51信用卡，当时客户端与前端使用的是Hybrid混合开发模式。在51的两年基本上就是处于不断填坑状态，开始接触WebKit的时候Hybrid本身并没有架构的概念，很多代码基本都是以功能逻辑融合在一起，每当新增需求都很困难担心改动点是否全面有遗漏；而当Weex跨平台接入之后又依赖Hybrid，出现了运行时安全、耦合依赖等问题，本文会详细阐述遇到的实际问题以及是如何优化架构解决问题。
+
+###   一.早期Hybrid架构 
   
 <table>
     <thead>
@@ -79,16 +80,17 @@ tags:
         </tr>
     </tbody>
 </table>
-<!-- #### （一）功能点概况      
-主要包含的功能点：通信、Hybrid API、Event、URL配置、调试工具、UniversalLink、容器UI。    
-不包含的功能模块：离线、监控。     
-#### （二）面临的问题主要有      
-1.功能模块划分不清晰：以上所有的功能点都放在WebAppKit基础库中，并且在基础库中没有合理的划分模块。    
-2.视图容器逻辑不清晰：各种UI组件初始化、WebView（WK/UI）配置以及回调、导航控制逻辑等等都放在WebController中，各种逻辑通过不断的添加属性来区分，当时该文件有1000多行的代码，对于后续扩展监控、离线、注入脚本则会带来很大的困难，不好维护。       
-3.接口不可控问题：比如在视图中WebView完全暴露，而子类可以在任意时机操作WebView，引入不可控因素。     
-4.WebKit可扩展性、耦合性问题：业务侧只能使用继承的方式使用基础WebController，不支持组合的方式，并且不能单独使用WebView。比如业务同学单独使用WebView做运营广告位，只能使用野路子的方式，操作WebController中的View。      
-5. PG(原生API)设计问题：线程安全、API与框架稳定性问题、可移植性与可扩展性问题、运行时安全问题等等，在PG设计演进中会详细介绍。  -->  
 
+#### （一）功能点概况      
+<font style="color:#0F7290;font-weight:bold;">主要包含的功能点：</font>通信、Hybrid API、Event、URL配置、调试工具、UniversalLink、容器UI。    
+<font style="color:#0F7290;font-weight:bold;">不包含的功能模块：</font>离线、监控。 
+
+#### （二）面临的问题主要有      
+<font style="color:#0F7290;font-weight:bold;">1.功能模块划分不清晰：</font>以上所有的功能点都放在WebAppKit基础库中，并且在基础库中没有合理的划分模块。    
+<font style="color:#0F7290;font-weight:bold;">2.视图容器逻辑不清晰：</font>各种UI组件初始化、WebView（WK/UI）配置以及回调、导航控制逻辑等等都放在WebController中，各种逻辑通过不断的添加属性来区分，当时该文件有1000多行的代码，对于后续扩展监控、离线、注入脚本则会带来很大的困难，不好维护。       
+<font style="color:#0F7290;font-weight:bold;">3.接口不可控问题：</font>比如在视图中WebView完全暴露，而子类可以在任意时机操作WebView，引入不可控因素。     
+<font style="color:#0F7290;font-weight:bold;">4.WebKit可扩展性、耦合性问题：</font>业务侧只能使用继承的方式使用基础WebController，不支持组合的方式，并且不能单独使用WebView。比如业务同学单独使用WebView做运营广告位，只能使用野路子的方式，操作WebController中的View。      
+<font style="color:#0F7290;font-weight:bold;">5. PG(原生API)设计问题：</font>线程安全、API与框架稳定性问题、可移植性与可扩展性问题、运行时安全问题等等，在PG设计演进中会详细介绍。   
 
 ###  二.跨平台架构    
 <table>
