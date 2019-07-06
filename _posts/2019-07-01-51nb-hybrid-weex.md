@@ -21,7 +21,7 @@ tags:
 
 <table>
     <thead>
-        <tr>
+        <tr bgcolor="#CC99FF">
             <th>Hybrid架构图</th>
             <th>混合开发通信逻辑架构</th>
             <th>备注</th>
