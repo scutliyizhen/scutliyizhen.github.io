@@ -17,7 +17,52 @@ tags:
 
 &ensp;&ensp;&ensp;&ensp;2017年我进入51信用卡，那时客户端与前端使用的是Hybrid混合开发模式。在51的两年基本上就是处于不断填坑状态，开始接触WebKit的时候Hybrid本身并没有架构的概念，很多代码基本都是以功能逻辑融合在一起，每当新增需求都很困难担心改动点是否全面有遗漏；而当Weex跨平台接入之后又依赖Hybrid，出现了运行时安全、耦合依赖等问题，本文会详细阐述遇到的实际问题以及是如何优化架构解决问题。
 
-###   一.早期Hybrid架构  
+###   一.早期Hybrid架构 
+<style>
+  table {
+      width: 100%; /*表格宽度*/
+      border-collapse: collapse; /*使用单一线条的边框*/
+      empty-cells: show; /*单元格无内容依旧绘制边框*/
+  }
+	
+  table th,td {
+    height: 35px; /*统一每一行的默认高度*/
+  }
+	
+  table th {
+      font-weight: bold; /*加粗*/
+      text-align: center !important; /*内容居中，加上 !important 避免被 Markdown 样式覆盖*/
+      background: #ECF2F9; /*背景色*/
+      white-space: nowrap; /*表头内容强制在一行显示*/
+  }
+	
+  /* 隔行变色 */
+  table tbody tr:nth-child(2n) {
+      background: #F4F7FB; 
+  }
+  /* 悬浮变色 */
+  table tr:hover {
+      background: #B2B2B2; 
+  }
+	
+  /* 首列不换行 */
+  table td:nth-child(1) {
+      white-space: nowrap; 
+  }
+  /* 指定列宽度 */
+  table th:nth-of-type(2) {
+    	width: 200px;
+     white-space: nowrap;
+  }
+  </style>  
+  
+  | 表格左对齐 | 表格居中对齐 | 表格右对齐 |
+  |:--|:--:|--:|
+  | 表格内容 | 表格内容表格内容表格内容 <BR> 表格内容表格内容表格内容<BR>表格内容表格内容表格内容<BR>表格内容表格内容表格内容 | 表格内容表格内容表格内容 |
+  | 表格内容 | 表格内容表格内容表格内容 | 表格内容表格内容表格内容 |
+  | 表格内容 |  | 表格内容表格内容表格内容 |
+  | 表格内容 | 表格内容表格内容表格内容 | 表格内容表格内容表格内容 |
+
 
 <table>
     <thead>
@@ -29,7 +74,7 @@ tags:
     </thead>
     <tbody>
         <tr>
-            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_old.png"/></td>
+            <td bgcolor="Pink"><img src="/Resources/Posts/liyizhen_blog_cross_platform_old.png"/></td>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_old_pg.png"/></td>
             <td>架构图是我2017年刚进公司的时候在公司的wiki上翻到的，对应的基础库代码也就是早期的WebAppKit。</td>
         </tr>
