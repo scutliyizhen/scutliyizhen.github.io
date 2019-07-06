@@ -32,8 +32,10 @@ tags:
   table th {
       font-weight: bold; /*加粗*/
       text-align: center !important; /*内容居中，加上 !important 避免被 Markdown 样式覆盖*/
-      background: #ECF2F9; /*背景色*/
       white-space: nowrap; /*表头内容强制在一行显示*/
+      font-size:16px;font-family:"Times New Roman", Times, serif !important;
+      background: #ECF2F9; /*背景色*/
+      color:#0F7290;
   }
   
    table td {
@@ -46,9 +48,9 @@ tags:
       background: #F4F7FB; 
   }
   /* 悬浮变色 */
-  table tr:hover {
+  /*table tr:hover {
       background: #B2B2B2; 
-  }
+  }*/
 	
   /* 首列不换行 */
   table td:nth-child(1) {
