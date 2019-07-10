@@ -96,8 +96,8 @@ tags:
 &ensp;&ensp;&ensp;&ensp;比如在视图中WebView完全暴露，而子类可以在任意时机操作WebView，引入不可控因素。     
 <font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;4.WebKit可扩展性、耦合性问题：</font>
 &ensp;&ensp;&ensp;&ensp;业务侧只能使用继承的方式使用基础WebController，不支持组合的方式，并且不能单独使用WebView。比如业务同学单独使用WebView做运营广告位，只能使用野路子的方式，操作WebController中的View。      
-<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;5. PG(原生API)设计问题</font>
-&ensp;&ensp;&ensp;&ensp;线程安全、API与框架稳定性问题、可移植性与可扩展性问题、运行时安全问题等等，在PG设计演进中会详细介绍。   
+<font style="color:#0F7290;font-weight:bold;">&ensp;&ensp;&ensp;&ensp;5.PG(原生API)设计问题</font>
+&ensp;&ensp;&ensp;&ensp;耦合度高、线程安全、基础库依赖、运行时问题（比如PG生命周期、所属范围等）、可维护性差等问题。   
 
 ###  二.跨平台架构    
 <table>
@@ -117,7 +117,19 @@ tags:
     </tbody>
 </table>
 
-###  三.架构演进  
+####  面临的问题主要有  
+- <font style="color:#0F7290">1.基础库依赖问题</font> 
+比如，Weex依赖Webkit。
+- <font style="color:#0F7290">2.运行时安全问题</font> 
+比如，由于PG可以随意访问容器UI元素，而接入Weex后，导致沉淀的PG运行处于不安全状态，Weex视图强制转换成Web视图对象。
+- <font style="color:#0F7290">3.维护困难</font> 
+比如，由于Weex视图对象强制转换成Web视图对象使用，比如每次Web视图修改都要考虑Weex视图做相应修改，很不安全。
+- <font style="color:#0F7290">4.质量问题</font> 
+缺少必要的监控手段。
+- <font style="color:#0F7290">PG历史包袱</font> 
+平台兼容性问题、缺少规范、数据不一致、文档描述与实现不一致等各种问题严重影响跨平台效率。
+
+###  三.架构演进   
 
 <table>
     <thead>
@@ -131,7 +143,7 @@ tags:
         <tr>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_new.jpg"/></td>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_core.jpg"/></td>
-            <td>新的架构演进,Hybrid、PGCore、头部容器等是Swift版本，目前Weex还未计划重写Swift版本。</td>
+            <td>新的架构演进,Hybrid、PGCore、头部容器等是Swift版本</td>
         </tr>
     </tbody>
 </table>
@@ -153,5 +165,27 @@ tags:
 
 ###  四.PG设计演进  
 
+<table>
+    <thead>
+        <tr>
+            <th>PGCore逻辑架构</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_core.jpg"/></td>
+            <td>新的架构演进,Hybrid、PGCore、头部容器等是Swift版本</td>
+        </tr>
+    </tbody>
+</table>  
 
-> 这是第一篇技术文章，后续计划先将已经阅读的Weex源码进行剖析分享给大家，例如从前端VM（虚拟Dom，Vue Dom）到客户端虚拟Dom（RenderObject）的整个渲染过程分析、线程模型设计、架构分析、性能优化等。 
+####  主要解决以下问题     
+- <font style="color:#0F7290">1.基础库依赖问题</font>    
+- <font style="color:#0F7290">2.可复用性问题</font>    
+- <font style="color:#0F7290">3.运行时安全问题</font>    
+- <font style="color:#0F7290">4.API与框架稳定性问题</font>   
+- <font style="color:#0F7290">5.线程安全问题</font>   
+- <font style="color:#0F7290">6.可维护性问题</font>   
+
+> 这是第一篇技术文章，后续计划先将已经阅读的Weex源码进行剖析分享给大家，例如从前端VM（虚拟Dom，Vue Dom）到客户端虚拟Dom（RenderObject）的整个渲染过程分析、线程模型设计、架构分析、性能优化等。   
