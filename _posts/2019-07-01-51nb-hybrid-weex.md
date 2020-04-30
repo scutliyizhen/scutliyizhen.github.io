@@ -142,26 +142,10 @@ tags:
     <tbody>
         <tr>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_new.jpg"/></td>
-            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_core.jpg"/></td>
             <td>新的架构演进,Hybrid、PGCore、头部容器等是Swift版本</td>
         </tr>
     </tbody>
 </table>
-
-
-####  1.Hybrid容器    
-- <font style="color:#0F7290">UI层</font>WebView（WK/UI）、组件（加载loading、异常错误、进度条等）、Controller、WebView接口扩展。     
-- <font style="color:#0F7290">Engine层</font>分为WKEngine、UIEngine，主要处理Web容器与离线、监控、注入脚本、路由、PGCore等模块的交换核心逻辑。   
-- <font style="color:#0F7290">注入脚本模块</font>区分WKWebView注入脚本、UIWebView注入脚本（与离线技术方案相似，涉及业务敏感性所以不透露太多）。   
-- <font style="color:#0F7290">Data层</font>处理WebUA与Cookie的问题。  
-
-####  2.Weex容器    
-
-####  3.头部容器   
-
-####  4.离线模块 
-
-####  5.EventBus   
 
 ###  四.PG设计演进  
 
@@ -180,12 +164,44 @@ tags:
     </tbody>
 </table>  
 
-####  主要解决以下问题     
+#### （一）解决问题 
 - <font style="color:#0F7290">1.基础库依赖问题</font>    
 - <font style="color:#0F7290">2.可复用性问题</font>    
 - <font style="color:#0F7290">3.运行时安全问题</font>    
 - <font style="color:#0F7290">4.API与框架稳定性问题</font>   
 - <font style="color:#0F7290">5.线程安全问题</font>   
-- <font style="color:#0F7290">6.可维护性问题</font>   
+- <font style="color:#0F7290">6.可维护性问题</font> 
 
-> 这是第一篇技术文章，后续计划先将已经阅读的Weex源码进行剖析分享给大家，例如从前端VM（虚拟Dom，Vue Dom）到客户端虚拟Dom（RenderObject）的整个渲染过程分析、线程模型设计、架构分析、性能优化等。   
+####  (二)设计方案
+
+#####  1.通信协议
+callBackid、methodName、Args
+#####  2.前端方法调用  
+pg.setNavigationBarightBtns(r1,r2)
+#####  3.前端生成方法体描述，并且随机生成id
+前端采用hash表管理。
+#####  4.前端与客户端通信，将方法抽象描述传递给客户端。
+#####  5.客户端根据方法体描述生成plugin与方法体。
+（1）plugin：负责将结果反馈给跨平台层、以及将执行动作Dispatch到容器层。
+（2）方法体：业务开发只需要定义方法，在犯法中不可以直接访问容器。
+#####  6.方法执行与方法检测
+（1）同步方法
+（2）异步方法
+（3）执行动作是否进一步传递到容器层。
+#####  7.结果返回  
+（1）直接返回
+（2）异步返回
+（3）容器层动作执行完成后返回，由plugin进行向跨平台层返回结果，回调给客户端。
+
+#### （三）主要特点
+#####  1.API一致性
+各跨平台、以及多核浏览器可使用一致化API，包括对容器的处理。
+#####  2.灵活扩展
+可灵活接入各跨平台技术方案，且沉淀的API不受影响。比如，对浏览器的操作包括hybrid容器，业务自定义webview、以及weex中的webview。
+#####  3.高内聚、低耦合
+所有方法体功能性代码均只限制在该类扩展中方法类文件中，比如对webview操作相关代码也只能在该方法体的分类文件中，不会将大量的功能性代码放入到主体文件中，增强维护性。
+#####  4.轻量无状态
+以方法体的方式进行描述，而非业界Module的方式（不会造成大量的Module独享常驻App），方法体的生命周期，仅在方法调用开始到结果返回，无状态化保证了同一个方法多次调用的安全性。
+#####  5.稳定安全
+所有API均是无状态化，并且所属领域只在当前页面，保证了极限状态下堆API的使用各个页面之间互相不影响。并且对方法进行监控、以及方法调用权限管理等。   
+     
