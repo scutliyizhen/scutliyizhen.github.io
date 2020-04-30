@@ -164,6 +164,22 @@ tags:
     </tbody>
 </table>  
 
+####   eg:使用方式
+<table>
+    <thead>
+        <tr>
+            <th>旧方案使用方式</th>
+            <th>新方案使用方式</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_old.jpg"/></td>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_new.jpg"/></td>
+        </tr>
+    </tbody>
+</table>  
+
 #### （一）解决问题 
 - <font style="color:#0F7290">1.基础库依赖问题</font>    
 - <font style="color:#0F7290">2.可复用性问题</font>    
@@ -181,17 +197,17 @@ pg.setNavigationBarightBtns(r1,r2)
 #####  3.前端生成方法体描述，并且随机生成id
 前端采用hash表管理。
 #####  4.前端与客户端通信，将方法抽象描述传递给客户端。
-#####  5.客户端根据方法体描述生成plugin与方法体。
-（1）plugin：负责将结果反馈给跨平台层、以及将执行动作Dispatch到容器层。
-（2）方法体：业务开发只需要定义方法，在犯法中不可以直接访问容器。
+#####  5.客户端根据方法体描述生成plugin与方法体。 
+（1）plugin：负责将结果反馈给跨平台层、以及将执行动作Dispatch到容器层。  
+（2）方法体：业务开发只需要定义方法，在犯法中不可以直接访问容器。  
 #####  6.方法执行与方法检测
-（1）同步方法
-（2）异步方法
-（3）执行动作是否进一步传递到容器层。
+（1）同步方法     
+（2）异步方法   
+（3）执行动作是否进一步传递到容器层   
 #####  7.结果返回  
-（1）直接返回
-（2）异步返回
-（3）容器层动作执行完成后返回，由plugin进行向跨平台层返回结果，回调给客户端。
+（1）直接返回  
+（2）异步返回   
+（3）容器层动作执行完成后返回，由plugin进行向跨平台层返回结果，回调给客户端。   
 
 #### （三）主要特点
 #####  1.API一致性
