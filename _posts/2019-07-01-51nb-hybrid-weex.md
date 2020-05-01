@@ -178,7 +178,7 @@ tags:
 - <font style="color:#0F7290">5.线程安全问题</font>   
 - <font style="color:#0F7290">6.可维护性问题</font> 
 
-####  (二)设计方案  
+####  （二）设计方案  
 #####  1.通信协议
 callBackid、methodName、Args
 #####  2.前端方法调用  
