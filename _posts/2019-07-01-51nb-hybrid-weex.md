@@ -154,7 +154,7 @@ tags:
     </tbody>
 </table>  
 
-####   eg:使用方式
+####   举例:设置导航右侧按钮
 <table>
     <thead>
         <tr>
@@ -166,6 +166,14 @@ tags:
         <tr>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_old.jpg"/></td>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_new.jpg"/></td>
+        </tr>
+        <tr>
+            <th>问题点：
+                1.Weex不能直接使用该方法（意味着无法降级）
+                2.若扩展其他跨平台方案则需要重新各自实现（比如再扩展Flutter）
+                3.基础侧提供默认设置方式，不同业务团队无法自定义扩展
+            </th>
+            <th></th>
         </tr>
     </tbody>
 </table>  
