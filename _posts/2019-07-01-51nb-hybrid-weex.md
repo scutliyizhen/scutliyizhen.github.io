@@ -162,19 +162,17 @@ tags:
         <tr>
             <th>旧方案使用方式</th>
             <th>新方案使用方式</th>
+            <th>备注</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_old.jpg"/></td>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_new.jpg"/></td>
+            <td>老方案问题点：Weex不能直接使用该方法（意味着无法降级）；若扩展其他跨平台方案则需要重新各自实现（比如再扩展Flutter）；基础侧提供默认设置方式，不同业务团队无法自定义扩展。</td>
         </tr>
     </tbody>
 </table>  
-备注：老方案问题点
-- 1.Weex不能直接使用该方法（意味着无法降级）
-- 2.若扩展其他跨平台方案则需要重新各自实现（比如再扩展Flutter）
-- 3.基础侧提供默认设置方式，不同业务团队无法自定义扩展
 
 #### （一）解决问题 
 - <font style="color:#0F7290">1.基础库依赖问题</font>    
