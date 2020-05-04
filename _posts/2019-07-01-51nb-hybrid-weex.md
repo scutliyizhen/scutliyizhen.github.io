@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      跨平台架构演进 
-date:       2019-07-01
+date:       2029-05-04
 author:     robertyzli
 header-img: Resources/Posts/liyizhen_blog_cross_platform_bg.jpg
 catalog: true
@@ -62,7 +62,7 @@ tags:
 
 &ensp;&ensp;&ensp;&ensp;2017年我进入51信用卡，当时客户端与前端使用的是Hybrid混合开发模式。在51的两年基本上就是处于不断填坑状态，开始接触WebKit的时候Hybrid本身并没有架构的概念，很多代码基本都是以功能逻辑融合在一起，每当新增需求都很困难担心改动点是否全面有遗漏；而当Weex跨平台接入之后又依赖Hybrid，出现了运行时安全、耦合依赖等问题，本文会详细阐述遇到的实际问题以及是如何优化架构解决问题。
 
-**<font style="color:#FF005D">总体目标：易用、稳定、高效、高性能、高扩展</font>**
+**<font style="color:#FF005D">总体目标：高扩展、高复用、高内聚低耦合、高性能（待优化）、方便易用、稳定安全</font>**
 
 ###   一.早期Hybrid架构   
 <table>
