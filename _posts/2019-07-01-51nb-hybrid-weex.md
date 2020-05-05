@@ -80,7 +80,8 @@ PG监控、访问权限控制。
 - <font style="color:#0F7290">6.高性能（待优化）</font> 
 线程模型优化（任务数目不可控、任务拥塞）、任务优先级队列、接口单点优化等。
 
-###   二.早期Hybrid架构   
+###   二.早期架构  
+#####  （一）Hybrid架构   
 <table>
     <thead>
         <tr>
@@ -98,19 +99,7 @@ PG监控、访问权限控制。
     </tbody>
 </table>
 
-#### 面临的问题主要有   
-- <font style="color:#0F7290">1.功能模块划分不清晰</font> 
-比如，以上所有的功能点都放在WebAppKit基础库中，并且在基础库中没有合理的划分模块。
-- <font style="color:#0F7290">2.视图容器逻辑不清晰</font> 
-比如，各种UI组件初始化、WebView（WK/UI）配置以及回调、导航控制逻辑等等都放在Web视图容器中，各种逻辑通过不断的添加属性来区分，当时该文件有1000多行的代码，对于后续扩展监控、离线、注入脚本则会带来很大的困难，导致维护成本很高。
-- <font style="color:#0F7290">3.接口不可控问题</font> 
-比如，在视图中WebView完全暴露，而子类可以在任意时机操作WebView，引入不可控因素。
-- <font style="color:#0F7290">4.WebKit可扩展性、耦合性问题</font> 
-比如，业务侧只能使用继承的方式使用基础WebController，不支持组合的方式，并且不能单独使用WebView。比如业务同学单独使用WebView做运营广告位，只能使用野路子的方式，操作WebController中的View。 
-- <font style="color:#0F7290">5.PG(原生API)设计问题</font> 
-比如，耦合度高、线程安全、基础库依赖、运行时问题（比如PG生命周期、所属范围等）、可维护性差等问题。 
-  
-###  三.早期跨平台架构    
+####  （二）跨平台架构
 <table>
     <thead>
         <tr>
@@ -128,19 +117,32 @@ PG监控、访问权限控制。
     </tbody>
 </table>
 
-####  面临的问题主要有  
-- <font style="color:#0F7290">1.基础库依赖问题</font> 
-比如，Weex依赖Webkit。
-- <font style="color:#0F7290">2.运行时安全问题</font> 
-比如，由于PG可以随意访问容器UI元素，而接入Weex后，导致沉淀的PG运行处于不安全状态，Weex视图强制转换成Web视图对象。
-- <font style="color:#0F7290">3.维护困难</font> 
-比如，由于Weex视图对象强制转换成Web视图对象使用，比如每次Web视图修改都要考虑Weex视图做相应修改，很不安全。
-- <font style="color:#0F7290">4.质量问题</font> 
-缺少必要的监控手段。
-- <font style="color:#0F7290">5.PG历史包袱</font> 
+#### （三）面临问题   
+- <font style="color:#0F7290">1.功能模块划分不清晰</font> 
+Hybrid功能点主要有双核浏览器、Cookie管理、WebUA管理、头部扩展（标题、按钮等样式自定义扩展很困难以及不满足沉浸式头部等等）、加载提示（进度条、菊花，并且双WebView进度设置方式不同）、PG（H5与Native交互API，比如调用原生getLocation获取地理位置信息）执行核心逻辑、URLScheme跳转（比如跳转到AppStore、拉起微信支付、打电话等等）等等。这些功能点都放在WebAppKit基础库中，并且没有划分清晰的模块逻辑都融合在一起导致后续扩展离线优化、注入脚本（在dom创建时机注入，注入过早导致无法执行，过晚可能错过时机）、通信（H5页面之间通信、原生与Native之间通信）、WebGL Crash处理等功能非常的困难。
+- <font style="color:#0F7290">2.基础库依赖问题</font> 
+由于PG核心逻辑高耦合Hybrid导致跨平台方案Weex必须依赖Hybrid（因为Weex需要扩展支持PG方法调用），任何需要扩展PG的基础库（比如登录、埋点等）、业务都会依赖Hybrid。高度耦合依赖导致每次发版效率很低，基础库的依赖呈现网状状态。
+- <font style="color:#0F7290">3.视图容器逻辑不清晰</font> 
+比如，加载逻辑（加载进度条或者菊花未抽象UI组件）、WebView配置逻辑（双核浏览器逻辑耦合在一起）、导航控制逻辑（标题更新、返回按钮、分享按钮等逻辑，并且缺乏灵活扩展）、WebUA等等都放在Web视图容器中，各种逻辑通过不断的添加属性来区分，当时该文件有1000多行的代码，对于后续扩展监控、离线、注入脚本则会带来很大的困难，导致维护成本很高。
+- <font style="color:#0F7290">4.接口不可控问题</font> 
+基础hybrid在视图中直接暴露WebView浏览器，从而子类可以在任意时机操作WebView，引入不可控因素。比如业务继承基础暴露WebView，业务自定义加载url时机，导致基础在处理h5加载时机（比如监控或者处理url公共参数）时很容易遗漏等等。
+- <font style="color:#0F7290">5.线程安全问题</font> 
+PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调用WebView获取URL接口等等，潜在了很多不安全因素。
+- <font style="color:#0F7290">6.运行时安全问题</font> 
+在PG执行逻辑中Weex视图容器对象直接转换为Web视图容器使用，比如获取容器当前加载的URL，则Weex容器必须要提供一个与Web容器一样的获取URL的接口否则出现Crash，同理只要Web容器增加属性或者方法Weex也要同样增加，潜在了很严重的不安全因素。
+- <font style="color:#0F7290">7.PG所属范围问题</font> 
+比如打开A页面再快速打开B页面，然后快速返回，若在B页面调用了设置容器的方法那么B页面返回后该PG还会继续执行，则最后导致在A页面上生效。
+- <font style="color:#0F7290">8.PG一致性问题</font> 
+因在PG方法中可以自由操作视图容器等（比如设置头部标题）沉淀的hybrid PG方法无法在Weex上复用（因为更新头部标题的PG方法内部访问的是Web容器而不是Weex视图容器），有很多类似的API不能做到一致性从而导致Weex在一定程度上很难做到可降级H5页面。
+- <font style="color:#0F7290">9.可扩展性查</font> 
+因PG核心逻辑强耦合Web视图容器，若让WebView支持PG方法调用则必须依赖Web视图容器。比如，业务同学单独使用WebView做运营广告位，只能使用野路子的方式，操作WebController中的View。并且，Weex组件WebView无法扩展使用PG方法。 
+- <font style="color:#0F7290">10.稳定安全问题</font> 
+缺少对PG使用监控手段，以及敏感PG（比如获取用户信息GetUserInfo返回token）的权限访问。
+- <font style="color:#0F7290">11.PG历史包袱问题</font> 
 平台兼容性问题、缺少规范、数据不一致、文档描述与实现不一致等各种问题严重影响跨平台效率。
 
-###  四.架构演进   
+###  三.架构演进   
+####  （一）总体架构
 <table>
     <thead>
         <tr>
@@ -156,7 +158,7 @@ PG监控、访问权限控制。
     </tbody>
 </table>
 
-###  五.PG设计演进  
+####  （二）PG架构设计
 <table>
     <thead>
         <tr>
@@ -172,12 +174,21 @@ PG监控、访问权限控制。
     </tbody>
 </table>  
 
-**举例（H5设置导航右侧按钮）**
+#### （三）架构描述
+#####  1.业务架构
+<font style="color:#0F7290">（1）H5业务架构</font> ：头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNHybrid+TNSuperSpeed（离线）+ TNPGLib(原生API) + TNEventBus(通信总线) + 监控
+<font style="color:#0F7290">（2）Weex业务架构</font>：头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）
+#####  2.基础架构
+<font style="color:#0F7290">（1）PGCore</font>：Instance+Service+Plugin(Method)+Dispatcher+Bridge
+<font style="color:#0F7290">（2）CrossPlatform</font>：Bridge(Hybrid(UI+WK)+Weex+Flutter)+通信扩展（Hybrid(UI+WK)+Weex+Flutter）
+<font style="color:#0F7290">（3）Header</font>: Container+Implmentation+Router(popn,基于双向链表解决连续push/pop/present/dismiss问题)+ Elements(StatusBar+HeaderStyle+Navigator(LBtns+MidTitle+RBtns))
+
+####  （四）PG使用举例
 <table>
     <thead>
         <tr>
-            <th>旧方案使用方式</th>
-            <th>新方案使用方式</th>
+            <th>H5设置导航右侧按钮旧方案</th>
+            <th>H5设置导航右侧按钮新方案</th>
             <th>备注</th>
         </tr>
     </thead>
@@ -190,15 +201,9 @@ PG监控、访问权限控制。
     </tbody>
 </table>  
 
-#### （一）解决问题 
-- <font style="color:#0F7290">1.基础库依赖问题</font>    
-- <font style="color:#0F7290">2.可复用性问题</font>    
-- <font style="color:#0F7290">3.运行时安全问题</font>    
-- <font style="color:#0F7290">4.API与框架稳定性问题</font>   
-- <font style="color:#0F7290">5.线程安全问题</font>   
-- <font style="color:#0F7290">6.可维护性问题</font> 
+###  四.PG设计方案
 
-####  （二）设计方案  
+####  （一）设计方案  
 #####  1.通信协议
 callBackid、methodName、Args
 #####  2.前端方法调用  
@@ -218,7 +223,7 @@ pg.setNavigationBarightBtns(r1,r2)
 （2）异步返回   
 （3）容器层动作执行完成后返回，由plugin进行向跨平台层返回结果，回调给客户端。   
 
-#### （三）主要特点
+#### （二）主要特点
 #####  1.API一致性
 各跨平台、以及多核浏览器可使用一致化API，包括对容器的处理。
 #####  2.灵活扩展
@@ -230,7 +235,7 @@ pg.setNavigationBarightBtns(r1,r2)
 #####  5.稳定安全
 所有API均是无状态化，并且所属领域只在当前页面，保证了极限状态下堆API的使用各个页面之间互相不影响。并且对方法进行监控、以及方法调用权限管理等。   
 
-#### （四）待优化点  
+#### （三）待优化点  
 #####  1.线程模型优化    
 （1）线程数不可控：目前使用gcd执行方法体，若瞬时有大量方法体执行（比如H5埋点）会导致系统执行过多线程。     
 （2）线程任务拥塞。    
