@@ -62,9 +62,24 @@ tags:
 
 &ensp;&ensp;&ensp;&ensp;2017年我进入51信用卡，当时客户端与前端使用的是Hybrid混合开发模式。在51的两年基本上就是处于不断填坑状态，开始接触WebKit的时候Hybrid本身并没有架构的概念，很多代码基本都是以功能逻辑融合在一起，每当新增需求都很困难担心改动点是否全面有遗漏；而当Weex跨平台接入之后又依赖Hybrid，出现了运行时安全、耦合依赖等问题，本文会详细阐述遇到的实际问题以及是如何优化架构解决问题。
 
-**<font style="color:#FF005D">总体目标：高扩展、高复用、高内聚低耦合、高性能（待优化）、方便易用、稳定安全</font>**
+###  一.目标与体现
+**<font style="color:#FF005D">总体目标：</font>**跨平台层作为前端与Native的中间混合层，主要目标是为Hybrid/Weex（或者其他跨平台方案）**<font style="color:#FF005D">提供更好的服务能力（或者互动能力）</font>**。
+**<font style="color:#FF005D">目标体现：高扩展、高复用、高内聚低耦合、高性能（待优化）、方便易用、稳定安全</font>**
 
-###   一.早期Hybrid架构   
+- <font style="color:#0F7290">1.高扩展</font> 
+比如灵活扩展Weex内部的WebView调用PG方法，以及Weex调用PG方法、或者业务自定义浏览器；或者业务侧覆盖基础侧提供的默认PG方法。
+- <font style="color:#0F7290">2.高复用</font> 
+比如Hybrid沉淀的PG方法，Weex等其他跨平台方案可以无缝支持。
+- <font style="color:#0F7290">3.高内聚低耦合</font> 
+比如对webview容器修改的PG方法以及相关逻辑都放在Hybrid PG分类容器中，不需要修改主体Hybrid容器从而导致主体容器代码量冗杂庞大。
+- <font style="color:#0F7290">4.方便易用</font> 
+比如业界基本都是采用Module的方式业务若需扩展自定义需要创建Module类比较笨重，而我们的PG则只是一个简单的函数方法。
+- <font style="color:#0F7290">5.稳定安全</font> 
+PG监控、访问权限控制。
+- <font style="color:#0F7290">6.高性能（待优化）</font> 
+线程模型优化（任务数目不可控、任务拥塞）、任务优先级队列、接口单点优化等。
+
+###   二.早期Hybrid架构   
 <table>
     <thead>
         <tr>
@@ -94,7 +109,7 @@ tags:
 - <font style="color:#0F7290">5.PG(原生API)设计问题</font> 
 比如，耦合度高、线程安全、基础库依赖、运行时问题（比如PG生命周期、所属范围等）、可维护性差等问题。 
   
-###  二.早期跨平台架构    
+###  三.早期跨平台架构    
 <table>
     <thead>
         <tr>
@@ -124,7 +139,7 @@ tags:
 - <font style="color:#0F7290">5.PG历史包袱</font> 
 平台兼容性问题、缺少规范、数据不一致、文档描述与实现不一致等各种问题严重影响跨平台效率。
 
-###  三.架构演进   
+###  四.架构演进   
 <table>
     <thead>
         <tr>
@@ -140,7 +155,7 @@ tags:
     </tbody>
 </table>
 
-###  四.PG设计演进  
+###  五.PG设计演进  
 <table>
     <thead>
         <tr>
