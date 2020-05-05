@@ -63,8 +63,8 @@ tags:
 &ensp;&ensp;&ensp;&ensp;2017年我进入51信用卡，当时客户端与前端使用的是Hybrid混合开发模式。在51的两年基本上就是处于不断填坑状态，开始接触WebKit的时候Hybrid本身并没有架构的概念，很多代码基本都是以功能逻辑融合在一起，每当新增需求都很困难担心改动点是否全面有遗漏；而当Weex跨平台接入之后又依赖Hybrid，出现了运行时安全、耦合依赖等问题，本文会详细阐述遇到的实际问题以及是如何优化架构解决问题。
 
 ###  一.目标与体现
-**<font style="color:#FF005D">总体目标：</font>**跨平台层作为前端与Native的中间混合层，主要目标是为Hybrid/Weex（或者其他跨平台方案）**<font style="color:#FF005D">提供更好的服务能力（或者互动能力）</font>**。
-**<font style="color:#FF005D">目标体现：高扩展、高复用、高内聚低耦合、高性能（待优化）、方便易用、稳定安全</font>**
+**<font style="color:#FF005D">总体目标：</font>**跨平台层作为前端与Native的中间混合层，主要目标是为Hybrid/Weex（或者其他跨平台方案）**<font style="color:#FF005D">提供更好的服务能力（或者互动能力）</font>**。  
+**<font style="color:#FF005D">目标体现：高扩展、高复用、高内聚低耦合、高性能（待优化）、方便易用、稳定安全</font>**  
 
 - <font style="color:#0F7290">1.高扩展</font> 
 比如灵活扩展Weex内部的WebView调用PG方法，以及Weex调用PG方法、或者业务自定义浏览器；或者业务侧覆盖基础侧提供的默认PG方法。
