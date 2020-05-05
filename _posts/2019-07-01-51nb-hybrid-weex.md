@@ -187,7 +187,7 @@ Instance+Service+Plugin(Method)+Dispatcher+Bridge
 - <font style="color:#0F7290">（2）CrossPlatform</font>
 Bridge(Hybrid(UI+WK)+Weex+Flutter)+通信扩展（Hybrid(UI+WK)+Weex+Flutter）
 - <font style="color:#0F7290">（3）Header</font>
-Container+Implmentation+Router(popn,基于双向链表解决连续push/pop/present/dismiss问题)+ Elements(StatusBar+HeaderStyle+Navigator(LBtns+MidTitle+RBtns))
+Container+Implmentation+Router(popn,**<font style="color:#FF005D">基于双向链表解决连续push/pop/present/dismiss问题</font>**)+ Elements(StatusBar+HeaderStyle+Navigator(LBtns+MidTitle+RBtns))
 
 ####  （四）PG使用举例
 <table>
