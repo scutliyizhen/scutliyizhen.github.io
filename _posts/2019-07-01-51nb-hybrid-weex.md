@@ -176,12 +176,17 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 
 #### （三）架构描述
 #####  1.业务架构
-<font style="color:#0F7290">（1）H5业务架构</font> ：头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNHybrid+TNSuperSpeed（离线）+ TNPGLib(原生API) + TNEventBus(通信总线) + 监控
-<font style="color:#0F7290">（2）Weex业务架构</font>：头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）
+- <font style="color:#0F7290">（1）H5业务架构</font> 
+头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNHybrid+TNSuperSpeed（离线）+ TNPGLib(原生API) + TNEventBus(通信总线) + 监控
+- <font style="color:#0F7290">（2）Weex业务架构</font>
+头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）
 #####  2.基础架构
-<font style="color:#0F7290">（1）PGCore</font>：Instance+Service+Plugin(Method)+Dispatcher+Bridge
-<font style="color:#0F7290">（2）CrossPlatform</font>：Bridge(Hybrid(UI+WK)+Weex+Flutter)+通信扩展（Hybrid(UI+WK)+Weex+Flutter）
-<font style="color:#0F7290">（3）Header</font>: Container+Implmentation+Router(popn,基于双向链表解决连续push/pop/present/dismiss问题)+ Elements(StatusBar+HeaderStyle+Navigator(LBtns+MidTitle+RBtns))
+- <font style="color:#0F7290">（1）PGCore</font>
+Instance+Service+Plugin(Method)+Dispatcher+Bridge
+- <font style="color:#0F7290">（2）CrossPlatform</font>
+Bridge(Hybrid(UI+WK)+Weex+Flutter)+通信扩展（Hybrid(UI+WK)+Weex+Flutter）
+- <font style="color:#0F7290">（3）Header</font>
+Container+Implmentation+Router(popn,基于双向链表解决连续push/pop/present/dismiss问题)+ Elements(StatusBar+HeaderStyle+Navigator(LBtns+MidTitle+RBtns))
 
 ####  （四）PG使用举例
 <table>
