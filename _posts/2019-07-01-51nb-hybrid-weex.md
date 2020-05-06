@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      跨平台架构演进 
-date:       2020-05-04
+date:       2019-07-01
 author:     robertyzli
 header-img: Resources/Posts/liyizhen_blog_cross_platform_bg.jpg
 catalog: true
