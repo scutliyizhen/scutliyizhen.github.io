@@ -166,11 +166,11 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 **<font style="color:#18191B">描述表达式:</font>**头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）  
 
 **<font style="color:#0F7290">3.设计思想</font>**   
-**<font style="color:#0F7290">（1）模块化</font>**    
+**<font style="color:#0F7290">（1）模块化</font>**  
 - 应用层，TNHybrid（双核浏览器、Cookie管理、WebUA管理等）、TNWeex（组件/Module、配置、SDKBugFix等）、TNPGLib（各个基础库定义的PG方法分类集合）、其他基础库、业务     
 - 基础层，TNSuperSpeed（离线化，负责H5与Weex离线资源）、TNEventBus(原生、H5、Weex之间通信)、TNHeader（头部容器）、TNFireEye（监控）   
 - 核心层，TNPGCore（PG执行核心逻辑）   
-**<font style="color:#0F7290">（2）容器化</font>** 
+**<font style="color:#0F7290">（2）容器化</font>**
 无论哪种跨平台方案（H5，Weex，RN，Flutter）基本遵循三个原则, 
 - 基于原生容器UIViewController，也就各种跨平台UI最终都会绘制到视图容器的View上。  
 - 跨平台层与Native层通信，并且这个通信通道应该是双向的。  
@@ -178,7 +178,7 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 基于以上原则，可以将各种平台方案进行容器化抽象，比如视图容器、头部容器、浏览器容器（双核浏览器）、Weex实例容器（WeexInstance）等。H5/Weex可以通过PG调用，PGCore中的Dispatch将调用动作派发到对应的容器层来操作容器。      
 **<font style="color:#0F7290">（3）平坦化</font>**   
 公共逻辑下沉，可以应用到各个平台方案，包括原生，h5，跨平台方案（Weex，RN，Flutter），这部分逻辑不应该依赖任何与特定平台技术相关的逻辑（一般只包括系统接口与工程Base基础库），作为最底层逻辑模块（PGCore）应该尽量保持独立性，平行模块之间不应该出现互相依赖行为，该模块只可以被上层模块依赖（头部容器，通信模块，Hybrid，Weex等基础库，或者业务）。  
-**<font style="color:#0F7290">（4）立体化</font>**     
+**<font style="color:#0F7290">（4）立体化</font>**    
 联通性，通过事件总线TNEventBus将原生、H5、Weex联通，实现混合开发模式下页面之间的通信能力。  
 稳定性，通过监控告警TNFireEye对PG调用、H5/Weex加载性能、脚本运行、PG权限白名单、页面加载等异常情况进行监控，敏感重要的监控做到实时告警通知，将告警通知关联到相关负责人，实现监控告警闭环。   
 
