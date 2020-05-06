@@ -165,7 +165,7 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 **<font style="color:#0F7290">（2）Weex业务架构</font>**   
 **<font style="color:#18191B">描述表达式:</font>**头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）  
 
-####  （二）PG架构设计
+####  （二）PG架构
 **<font style="color:#0F7290">1.总体架构图</font>**
 <table>
     <thead>
@@ -204,6 +204,39 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_old.jpg"/></td>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_new.jpg"/></td>
             <td>老方案问题点：Weex不能直接使用该方法（意味着无法降级）；若扩展其他跨平台方案则需要重新各自实现（比如再扩展Flutter）；基础侧提供默认设置方式，不同业务团队无法自定义扩展。</td>
+        </tr>
+    </tbody>
+</table>  
+
+#### （三）监控告警
+**<font style="color:#0F7290">1.监控大盘</font>**
+<table>
+    <thead>
+        <tr>
+            <th>Hybrid大盘</th>
+            <th>Weex大盘</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_hybrid_market.png"/></td>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_weex_market.png"/></td>
+        </tr>
+    </tbody>
+</table>  
+
+**<font style="color:#0F7290">2.PG监控告警</font>**
+<table>
+    <thead>
+        <tr>
+            <th>告警大盘</th>
+            <th>告警通知</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_monitor_market.png"/></td>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_warnning.png"/></td>
         </tr>
     </tbody>
 </table>  
