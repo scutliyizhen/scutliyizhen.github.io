@@ -134,15 +134,16 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 比如打开A页面再快速打开B页面，然后快速返回，若在B页面调用了设置容器的方法那么B页面返回后该PG还会继续执行，则最后导致在A页面上生效。
 - <font style="color:#0F7290">8.PG一致性问题</font> 
 因在PG方法中可以自由操作视图容器等（比如设置头部标题）沉淀的hybrid PG方法无法在Weex上复用（因为更新头部标题的PG方法内部访问的是Web容器而不是Weex视图容器），有很多类似的API不能做到一致性从而导致Weex在一定程度上很难做到可降级H5页面。
-- <font style="color:#0F7290">9.可扩展性查</font> 
+- <font style="color:#0F7290">9.可扩展性差</font> 
 因PG核心逻辑强耦合Web视图容器，若让WebView支持PG方法调用则必须依赖Web视图容器。比如，业务同学单独使用WebView做运营广告位，只能使用野路子的方式，操作WebController中的View。并且，Weex组件WebView无法扩展使用PG方法。 
 - <font style="color:#0F7290">10.稳定安全问题</font> 
-缺少对PG使用监控手段，以及敏感PG（比如获取用户信息GetUserInfo返回token）的权限访问。
+缺少对PG使用监控手段（比如PG调用、白名单、脚本、性能监控等等），以及敏感PG（比如获取用户信息GetUserInfo返回token）的权限访问。
 - <font style="color:#0F7290">11.PG历史包袱问题</font> 
-平台兼容性问题、缺少规范、数据不一致、文档描述与实现不一致等各种问题严重影响跨平台效率。
+平台兼容性问题（同一个方法在iOS、Android上表现不一致）、缺少规范（比如参数、返回值、命名、版本等等）、实现不一致（比如管家、51人品都需要存储数据到本地的接口SaveValue。iOS在每个App上单独实现功能大致表现一致，管家使用YYModel存储，而人品贷App使用UserDefault存储；而Android则在基础库中实现，使用xml方式存储）、文档描述与实现不一致等各种问题严重影响前端与客户端开发效率。
 
 ###  三.架构演进   
 ####  （一）总体架构
+**<font style="color:#0F7290">1.总体架构图</font>**
 <table>
     <thead>
         <tr>
@@ -153,12 +154,19 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
     <tbody>
         <tr>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_new.jpg"/></td>
-            <td>新的架构演进,Hybrid、PGCore、头部容器等是Swift版本</td>
+            <td>新的架构演进Hybrid、PGCore、头部容器等是Swift版本</td>
         </tr>
     </tbody>
 </table>
 
+**<font style="color:#0F7290">2.架构描述</font>**
+- <font style="color:#0F7290">（1）H5业务架构</font>
+头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNHybrid+TNSuperSpeed（离线）+ TNPGLib(原生API) + TNEventBus(通信总线) + 监控
+- <font style="color:#0F7290">（2）Weex业务架构</font>
+头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）
+
 ####  （二）PG架构设计
+**<font style="color:#0F7290">1.总体架构图</font>**
 <table>
     <thead>
         <tr>
@@ -174,14 +182,7 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
     </tbody>
 </table>  
 
-#### （三）架构描述
-#####  1.业务架构
-- <font style="color:#0F7290">（1）H5业务架构</font>
-头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNHybrid+TNSuperSpeed（离线）+ TNPGLib(原生API) + TNEventBus(通信总线) + 监控
-- <font style="color:#0F7290">（2）Weex业务架构</font>
-头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）
-
-#####  2.基础架构
+**<font style="color:#0F7290">2.架构描述</font>**
 - <font style="color:#0F7290">（1）PGCore</font>
 Instance+Service+Plugin(Method)+Dispatcher+Bridge
 - <font style="color:#0F7290">（2）CrossPlatform</font>
@@ -189,7 +190,7 @@ Bridge(Hybrid(UI+WK)+Weex+Flutter)+通信扩展（Hybrid(UI+WK)+Weex+Flutter）
 - <font style="color:#0F7290">（3）Header</font>
 Container+Implmentation+Router(popn,**<font style="color:#FF005D">基于双向链表解决连续push/pop/present/dismiss问题</font>**)+ Elements(StatusBar+HeaderStyle+Navigator(LBtns+MidTitle+RBtns))
 
-####  （四）PG使用举例
+**<font style="color:#0F7290">3.PG使用举例</font>**
 <table>
     <thead>
         <tr>
