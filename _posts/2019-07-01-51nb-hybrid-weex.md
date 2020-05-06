@@ -200,9 +200,9 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
     </tbody>
 </table>  
 
-**<font style="color:#0F7290">2.架构描述</font>**     
+**<font style="color:#0F7290">2.架构描述</font>**       
 **<font style="color:#0F7290">（1）PGCore</font>**    
-**<font style="color:#18191B">描述表达式:</font>**Instance+Service+Plugin(Method)+Dispatcher+Bridge  
+**<font style="color:#18191B">描述表达式:</font>**Instance+Service+Plugin(Method)+Dispatcher+Bridge
 - Instance，统领全文的作用，每一个页面对应一个Instance，内部封装Service、Dispatcher、Bridge、PluginMananger等。  
 - Service，主要是负责将Bridge传递的方法描述抽象表达成对应的Plugin,并且交给Plugin管理器进行管理（该管理器不对外暴露），以及启动PG执行。  
 - Bridge，负责接收跨平台层传递过来的方法描述，以及结果反馈到跨平台层。  
