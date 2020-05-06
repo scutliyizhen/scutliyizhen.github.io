@@ -216,7 +216,7 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 **<font style="color:#18191B">Container：</font>**头部容器总领全文，作为UIViewController的关联属性，每个视图容器均具默认提供该容器，内部封装了头部样式、混合栈管理、状态栏等操作逻辑。  
 **<font style="color:#18191B">Implementation：</font>**作为头部实现的定义类，这里主要是考虑到头部有系统默认导航，以及业务自定义导航可以灵活扩展，比如沉浸式头部，内部封装Elements、Route。  
 **<font style="color:#18191B">Elements：</font>**内部封装了状态栏操作、导航样式操作、导航元素操作（自定义左侧按钮、中间标题、右侧按钮等复杂操作）。   
-**<font style="color:#18191B">Route：</font>**混合视图堆栈管理，这里需要重点提及连续Push/Pop/Present/Dismiss问题（比如A页面Push出B页面，在B页面关闭的时候Push出C页面，会偶现C页面不能出来的问题，一般支付场景中会遇到），当带动画连续操作时就会出现偶现页面不能正常出现或者页面出现顺序被打乱的场景，再加上App或者一些第三方库比如QMUIKit为了防止连续Push/Pop导致Crash而增加了Push/Pop锁同样也导致了以上问题的出现。为了解决该问题，我们提出了使用双向链表构造任务队列的方式解决混合视图栈问题。    
+**<font style="color:#18191B">Route：</font>**混合视图堆栈管理，这里需要**<font style="color:#FF005D">重点提及连续Push/Pop/Present/Dismiss问题</font>**（比如A页面Push出B页面，在B页面关闭的时候Push出C页面，会偶现C页面不能出来的问题，一般支付场景中会遇到），当带动画连续操作时就会出现偶现页面不能正常出现或者页面出现顺序被打乱的场景，再加上App或者一些第三方库比如QMUIKit为了防止连续Push/Pop导致Crash而增加了Push/Pop锁同样也导致了以上问题的出现。为了解决该问题，我们提出了使用双向链表构造任务队列的方式解决混合视图栈问题。    
 
 **<font style="color:#0F7290">3.PG使用举例</font>**
 <table>
