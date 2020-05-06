@@ -165,6 +165,12 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 **<font style="color:#0F7290">（2）Weex业务架构</font>**   
 **<font style="color:#18191B">描述表达式:</font>**头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）  
 
+**<font style="color:#0F7290">3.设计思想</font>** 
+**（1）模块化** 
+**（2）容器化**
+**（3）平坦化**
+**（4）立体化**
+
 ####  （二）PG架构
 **<font style="color:#0F7290">1.总体架构图</font>**
 <table>
