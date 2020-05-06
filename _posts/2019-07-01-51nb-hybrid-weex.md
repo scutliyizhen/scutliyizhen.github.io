@@ -165,11 +165,22 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 **<font style="color:#0F7290">（2）Weex业务架构</font>**   
 **<font style="color:#18191B">描述表达式:</font>**头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）  
 
-**<font style="color:#0F7290">3.设计思想</font>**   
-**（1）模块化**   
-**（2）容器化**  
-**（3）平坦化**  
-**（4）立体化**  
+**<font style="color:#0F7290">3.设计思想</font>**  
+**<font style="color:#0F7290">（1）模块化</font>** 
+应用层：TNHybrid（双核浏览器、Cookie管理、WebUA管理等）、TNWeex（组件/Module、配置、SDKBugFix等）、TNPGLib（各个基础库定义的PG方法分类集合）、其他基础库、业务
+基础层：TNSuperSpeed（离线化，负责H5与Weex离线资源）、TNEventBus(原生、H5、Weex之间通信)、TNHeader（头部容器）、TNFireEye（监控）
+核心层：TNPGCore（PG执行核心逻辑）
+**<font style="color:#0F7290">（2）容器化</font>** 
+无论哪种跨平台方案（H5，Weex，RN，Flutter）基本遵循三个原则：
+- 基于原生容器UIViewController，也就各种跨平台UI最终都会绘制到视图容器的View上。
+- 跨平台层与Native层通信，并且这个通信通道应该是双向的。
+- 不可能脱离原生开发，也就是无论哪种跨平台方案都必然与原生共同存在，也就是混合开发模式。必然也就存在混合视图栈管理、混合视图通信、共享数据、共享头部、共享底部TabBar等混合开发问题。
+基于以上原则，可以将各种平台方案进行容器化抽象，比如视图容器、头部容器、浏览器容器（双核浏览器）、Weex实例容器（WeexInstance）等。H5/Weex可以通过PG调用，PGCore中的Dispatch将调用动作派发到对应的容器层来操作容器。
+**<font style="color:#0F7290">（3）平坦化</font>** 
+公共逻辑下沉，可以应用到各个平台方案，包括原生，h5，跨平台方案（Weex，RN，Flutter），这部分逻辑不应该依赖任何与特定平台技术相关的逻辑（一般只包括系统接口与工程Base基础库），作为最底层逻辑模块（PGCore）应该尽量保持独立性，平行模块之间不应该出现互相依赖行为，该模块只可以被上层模块依赖（头部容器，通信模块，Hybrid，Weex等基础库，或者业务）。
+**<font style="color:#0F7290">（4）立体化</font>**    
+联通性：通过事件总线TNEventBus将原生、H5、Weex联通，实现混合开发模式下页面之间的通信能力。
+稳定性：通过监控告警TNFireEye对PG调用、H5/Weex加载性能、脚本运行、PG权限白名单、页面加载等异常情况进行监控，敏感重要的监控做到实时告警通知，将告警通知关联到相关负责人，实现监控告警闭环。
 
 ####  （二）PG架构
 **<font style="color:#0F7290">1.总体架构图</font>**
@@ -188,13 +199,23 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
     </tbody>
 </table>  
 
-**<font style="color:#0F7290">2.架构描述</font>**   
-**<font style="color:#0F7290">（1）PGCore</font>**   
+**<font style="color:#0F7290">2.架构描述</font>**     
+**<font style="color:#0F7290">（1）PGCore</font>**     
 **<font style="color:#18191B">描述表达式:</font>**Instance+Service+Plugin(Method)+Dispatcher+Bridge  
-**<font style="color:#0F7290">（2）CrossPlatform</font>**  
-**<font style="color:#18191B">描述表达式:</font>**Bridge(Hybrid(UI+WK)+Weex+Flutter)+通信扩展（Hybrid(UI+WK)+Weex+Flutter）  
-**<font style="color:#0F7290">（3）Header</font>**    
-**<font style="color:#18191B">描述表达式:</font>**Container+Implmentation+Router(popn,**<font style="color:#FF005D">基于双向链表解决连续push/pop/present/dismiss问题</font>**)+ Elements(StatusBar+HeaderStyle+Navigator(LBtns+MidTitle+RBtns))
+- Instance，统领全文的作用，每一个页面对应一个Instance，内部封装Service、Dispatcher、Bridge、PluginMananger等。  
+- Service，主要是负责将Bridge传递的方法描述抽象表达成对应的Plugin,并且交给Plugin管理器进行管理（该管理器不对外暴露），以及启动PG执行。  
+- Bridge，负责接收跨平台层传递过来的方法描述，以及结果反馈到跨平台层。  
+- Plugin，Plugin负责决定方法执行完成后是否通过Dispatcher向容器层进行派发调用，以及将方法结果反馈到跨平台层。而内部Method是真正的根据方法描述生成的方法体，业务侧自定义的PG方法也就是在Method扩展中定义方法体，Method中负责对方法定义规则校验、执行情况检查、方法体执行、结果返回封装等等。  
+- Disaptcher，负责将PG调用向跨平台层进行派发，并且可以定义派发规则，比如，基础库可以提供默认的PG方法实现（路由u51DeepLink该方法依赖的是51自研路由），管家App使用的基础库提供的默认路由PG，而小蓝本App团队使用的是第三方路由JRoute，业务侧需要自定义实现路由u51DeepLink来覆盖基础库默认提供的U51DeepLink。那么，你可能会想是不是可以在基础库中实现两种方式然后通过bool值来区分，这显然是不合理的，作为基础库不能依赖业务实现。   
+**<font style="color:#0F7290">（2）CrossPlatform</font>**   
+**<font style="color:#18191B">描述表达式:</font>**Bridge(Hybrid(UI+WK)+Weex+Flutter)+通信扩展（Hybrid(UI+WK)+Weex+Flutter）   
+跨平台层主要是作为对PGCore适配跨平台框架的中间层，比如浏览器WK/UI、Weex、Flutter通信方式各不相同，需要在该层适配。那么，你可能想是否可以将该层直接搬迁到PGCore层，当然不可以，那样的话PGCore就会依赖Hybrid、Weex、Flutter，而其他基础课若想自定义PG方法就会依赖PGCore，间接就会依赖各个跨平台基础课，导致基础库依赖成网状复杂化。  
+**<font style="color:#0F7290">（3）Header</font>**      
+**<font style="color:#18191B">描述表达式:</font>**Container+Implmentation+Router(popn,**<font style="color:#FF005D">基于双向链表解决连续push/pop/present/dismiss问题</font>**)+ Elements(StatusBar+HeaderStyle+Navigator(LBtns+MidTitle+RBtns))  
+- Container，头部容器总领全文，作为UIViewController的关联属性，每个视图容器均具默认提供该容器，内部封装了头部样式、混合栈管理、状态栏等操作逻辑。  
+- Implementation，作为头部实现的定义类，这里主要是考虑到头部有系统默认导航，以及业务自定义导航可以灵活扩展，比如沉浸式头部，内部封装Elements、Route。  
+- Elements，内部封装了状态栏操作、导航样式操作、导航元素操作（自定义左侧按钮、中间标题、右侧按钮等复杂操作）。   
+- Route，混合视图堆栈管理，这里需要重点提及连续Push/Pop/Present/Dismiss问题（比如A页面Push出B页面，在B页面关闭的时候Push出C页面，会偶现C页面不能出来的问题，一般支付场景中会遇到），当带动画连续操作时就会出现偶现页面不能正常出现或者页面出现顺序被打乱的场景，再加上App或者一些第三方库比如QMUIKit为了防止连续Push/Pop导致Crash而增加了Push/Pop锁同样也导致了以上问题的出现。为了解决该问题，我们提出了使用双向链表构造任务队列的方式解决混合视图栈问题。    
 
 **<font style="color:#0F7290">3.PG使用举例</font>**
 <table>
