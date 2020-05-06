@@ -165,9 +165,9 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 **<font style="color:#0F7290">（2）Weex业务架构</font>**  
 **<font style="color:#18191B">描述表达式:</font>**头部容器 + TNCrossplatform（适配跨平台调用原生API）+ TNWeex+TNSuperSpeed（离线）+ TNPGLib（原生API）+ TNEventBus(通信总线) + 监控 + WeexSDK（官方）  
 
-**<font style="color:#0F7290">3.设计思想</font>**  
-**<font style="color:#0F7290">（1）模块化</font>**
-公共逻辑下沉、模块化解耦,
+**<font style="color:#0F7290">3.设计思想</font>**     
+**<font style="color:#0F7290">（1）模块化</font>**  
+公共逻辑下沉、模块化解耦,  
 **<font style="color:#18191B">应用层：</font>**TNHybrid（双核浏览器、Cookie管理、WebUA管理等）、TNWeex（组件/Module、配置、SDKBugFix等）、TNPGLib（各个基础库定义的PG方法分类集合）、其他基础库、业务     
 **<font style="color:#18191B">基础层：</font>**TNSuperSpeed（离线化，负责H5与Weex离线资源）、TNEventBus(原生、H5、Weex之间通信)、TNHeader（头部容器）、TNFireEye（监控）   
 **<font style="color:#18191B">核心层：</font>**TNPGCore（PG执行核心逻辑）
