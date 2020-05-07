@@ -174,7 +174,7 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 **<font style="color:#0F7290">（2）容器化</font>**    
 无论哪种跨平台方案（H5，Weex，RN，Flutter）基本遵循三个原则,   
 **<font style="color:#18191B">基于原生容器：</font>**UIViewController，也就各种跨平台UI最终都会绘制到视图容器的View上。  
-**<font style="color:#18191B">双向通信能力：</font>**，并且这个通信通道应该是双向的。  
+**<font style="color:#18191B">双向通信能力：</font>**无论哪种跨平台方案基本都具备与原生双向通信能力。  
 **<font style="color:#18191B">混合开发模式：</font>**也就是无论哪种跨平台方案都必然与原生共同存在，也就是混合开发模式。必然也就存在混合视图栈管理、混合视图通信、共享数据、共享头部、共享底部TabBar等混合开发问题。  
 基于以上原则，可以将各种平台方案进行容器化抽象，比如视图容器、头部容器、浏览器容器（双核浏览器）、Weex实例容器（WeexInstance）等。H5/Weex可以通过PG调用，PGCore中的Dispatch将调用动作派发到对应的容器层来操作容器。      
 **<font style="color:#0F7290">（3）平坦化</font>**   
