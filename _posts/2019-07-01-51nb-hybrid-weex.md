@@ -85,16 +85,14 @@ PG监控、访问权限控制。
 <table>
     <thead>
         <tr>
-            <th>Hybrid架构图</th>
-            <th>混合开发通信逻辑架构</th>
-            <th>备注</th>
+            <th>Hybrid架构</th>
+            <th>通信逻辑架构</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_old.png"/></td>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_old_pg.png"/></td>
-            <td>架构图是我2017年刚进公司的时候在公司的wiki上翻到的，对应的基础库代码也就是早期的WebAppKit。</td>
         </tr>
     </tbody>
 </table>
@@ -103,16 +101,14 @@ PG监控、访问权限控制。
 <table>
     <thead>
         <tr>
-            <th>跨平台架构图</th>
-            <th>混合开发通信逻辑架构</th>
-            <th>备注</th>
+            <th>总体架构设计</th>
+            <th>通信逻辑架构</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_weex_hybrid.png"/></td>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_weex_hybrid_pg.png"/></td>
-            <td>Weex平台接入后，直接依赖WebKit，导致潜在了更多的问题</td>
         </tr>
     </tbody>
 </table>
@@ -148,13 +144,11 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
     <thead>
         <tr>
             <th>跨平台架构图</th>
-            <th>备注</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_new.jpg"/></td>
-            <td>新的架构演进Hybrid、PGCore、头部容器等是Swift版本</td>
         </tr>
     </tbody>
 </table>
@@ -190,13 +184,11 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
     <thead>
         <tr>
             <th>PGCore逻辑架构</th>
-            <th>备注</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_core.jpg"/></td>
-            <td>新的架构演进,Hybrid、PGCore、头部容器等是Swift版本</td>
         </tr>
     </tbody>
 </table>  
@@ -223,16 +215,14 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 <table>
     <thead>
         <tr>
-            <th>H5设置导航右侧按钮旧方案</th>
-            <th>H5设置导航右侧按钮新方案</th>
-            <th>备注</th>
+            <th>PG调用逻辑交互</th>
+            <th>PG调用代码示例</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_old.jpg"/></td>
-            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_new.jpg"/></td>
-            <td>老方案问题点：Weex不能直接使用该方法（意味着无法降级）；若扩展其他跨平台方案则需要重新各自实现（比如再扩展Flutter）；基础侧提供默认设置方式，不同业务团队无法自定义扩展。</td>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_new_logic.jpeg"/></td>
+            <td><img src="/Resources/Posts/liyizhen_blog_cross_platform_pg_new_code.jpeg"/></td>
         </tr>
     </tbody>
 </table>  
