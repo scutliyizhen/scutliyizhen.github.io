@@ -275,7 +275,8 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 （2）WKWebView使用userContentController。  
 （3）Weex扩展BridModule即可。  
 （4）Flutter使用FlutterMethodChannel即可。     
-**<font style="color:#18191B">5.客户端根据方法体描述生成plugin与方法体。</font>**    
+**<font style="color:#18191B">5.生成方法体</font>**    
+客户端根据方法体描述生成plugin与方法体   
 （1）plugin：负责将结果反馈给跨平台层、以及将执行动作Dispatch到容器层。    
 （2）方法体：业务开发只需要定义方法，在犯法中不可以直接访问容器。    
 **<font style="color:#18191B">6.方法执行与方法检测</font>**    
