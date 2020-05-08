@@ -203,7 +203,7 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 **<font style="color:#18191B">Disaptcher：</font>**负责将PG调用向跨平台层进行派发，并且可以定义派发规则，比如，基础库可以提供默认的PG方法实现（路由u51DeepLink该方法依赖的是51自研路由），管家App使用的基础库提供的默认路由PG，而小蓝本App团队使用的是第三方路由JRoute，业务侧需要自定义实现路由u51DeepLink来覆盖基础库默认提供的U51DeepLink。那么，你可能会想是不是可以在基础库中实现两种方式然后通过bool值来区分，这显然是不合理的，作为基础库不能依赖业务实现。   
 **<font style="color:#0F7290">（2）CrossPlatform</font>**  
 **<font style="color:#18191B">描述表达式:</font>**Bridge(Hybrid(UI+WK)+Weex+Flutter)+通信扩展（Hybrid(UI+WK)+Weex+Flutter）   
-跨平台层主要是作为对PGCore适配跨平台框架的中间层，比如浏览器WK/UI、Weex、Flutter通信方式各不相同，需要在该层适配。那么，你可能想是否可以将该层直接搬迁到PGCore层，当然不可以，那样的话PGCore就会依赖Hybrid、Weex、Flutter，而其他基础课若想自定义PG方法就会依赖PGCore，间接就会依赖各个跨平台基础课，导致基础库依赖成网状复杂化。  
+跨平台层主要是作为对PGCore适配跨平台框架的中间层，比如浏览器WK/UI、Weex、Flutter通信方式各不相同，需要在该层适配。那么，你可能想是否可以将该层直接搬迁到PGCore层，当然不可以，那样的话PGCore就会依赖Hybrid、Weex、Flutter，而其他基础库若想自定义PG方法就会依赖PGCore，间接就会依赖各个跨平台基础库，导致基础库依赖成网状复杂化。  
 **<font style="color:#0F7290">（3）Header</font>**    
 **<font style="color:#18191B">描述表达式:</font>**Container+Implmentation+Router(popn,**<font style="color:#FF005D">基于双向链表解决连续push/pop/present/dismiss问题</font>**)+ Elements(StatusBar+HeaderStyle+Navigator(LBtns+MidTitle+RBtns))  
 **<font style="color:#18191B">Container：</font>**头部容器总领全文，作为UIViewController的关联属性，每个视图容器均具默认提供该容器，内部封装了头部样式、混合栈管理、状态栏等操作逻辑。  
