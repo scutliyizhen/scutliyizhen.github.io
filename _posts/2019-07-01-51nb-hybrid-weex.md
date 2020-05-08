@@ -263,41 +263,41 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 ###  四.PG设计方案
 
 ####  （一）设计方案  
-**<font style="color:#18191B"> 1.通信协议</font>** 
-前端与客户端约定协议规则：callBackid、methodName、Args  
-**<font style="color:#18191B">2.方法调用</font>** 
-前端方法调用：pg.setNavigationBarightBtns(r1,r2)
-**<font style="color:#18191B">3.生成方法ID</font>** 
-前端生成方法体描述，并且随机生成id，前端采用hash表管理。
-**<font style="color:#18191B">4.通信方案</font>** 
-跨平台端与客户端通信，将方法抽象描述传递给客户端。
-（1）UIWebView使用kVO获取JSContext，然后注入Block回调作为JS调用客户端方法。
-（2）WKWebView使用userContentController。
-（3）Weex扩展BridModule即可。
-（4）Flutter使用FlutterMethodChannel即可。   
-**<font style="color:#18191B">5.客户端根据方法体描述生成plugin与方法体。</font>** 
-（1）plugin：负责将结果反馈给跨平台层、以及将执行动作Dispatch到容器层。  
-（2）方法体：业务开发只需要定义方法，在犯法中不可以直接访问容器。  
-**<font style="color:#18191B">6.方法执行与方法检测</font>** 
-（1）同步方法     
-（2）异步方法   
-（3）执行动作是否进一步传递到容器层       
-**<font style="color:#18191B">7.结果返回 </font>**    
-（1）直接返回    
-（2）异步返回     
-（3）容器层动作执行完成后返回，由plugin进行向跨平台层返回结果，回调给客户端。     
+**<font style="color:#18191B"> 1.通信协议</font>**   
+前端与客户端约定协议规则：callBackid、methodName、Args    
+**<font style="color:#18191B">2.方法调用</font>**   
+前端方法调用：pg.setNavigationBarightBtns(r1,r2)  
+**<font style="color:#18191B">3.生成方法ID</font>**   
+前端生成方法体描述，并且随机生成id，前端采用hash表管理。  
+**<font style="color:#18191B">4.通信方案</font>**   
+跨平台端与客户端通信，将方法抽象描述传递给客户端。  
+（1）UIWebView使用kVO获取JSContext，然后注入Block回调作为JS调用客户端方法。  
+（2）WKWebView使用userContentController。  
+（3）Weex扩展BridModule即可。  
+（4）Flutter使用FlutterMethodChannel即可。     
+**<font style="color:#18191B">5.客户端根据方法体描述生成plugin与方法体。</font>**    
+（1）plugin：负责将结果反馈给跨平台层、以及将执行动作Dispatch到容器层。    
+（2）方法体：业务开发只需要定义方法，在犯法中不可以直接访问容器。    
+**<font style="color:#18191B">6.方法执行与方法检测</font>**    
+（1）同步方法      
+（2）异步方法    
+（3）执行动作是否进一步传递到容器层        
+**<font style="color:#18191B">7.结果返回 </font>**      
+（1）直接返回     
+（2）异步返回      
+（3）容器层动作执行完成后返回，由plugin进行向跨平台层返回结果，回调给客户端。      
 
 #### （二）主要特点
-**<font style="color:#18191B">1.API一致性</font>** 
-各跨平台、以及多核浏览器可使用一致化API，包括对容器的处理。
-**<font style="color:#18191B">2.灵活扩展</font>** 
-可灵活接入各跨平台技术方案，且沉淀的API不受影响。比如，对浏览器的操作包括hybrid容器，业务自定义webview、以及weex中的webview。
-**<font style="color:#18191B">3.高内聚、低耦合</font>** 
-所有方法体功能性代码均只限制在该类扩展中方法类文件中，比如对webview操作相关代码也只能在该方法体的分类文件中，不会将大量的功能性代码放入到主体文件中，增强维护性。
-**<font style="color:#18191B">4.轻量无状态</font>** 
-以方法体的方式进行描述，而非业界Module的方式（不会造成大量的Module独享常驻App），方法体的生命周期，仅在方法调用开始到结果返回，无状态化保证了同一个方法多次调用的安全性。
-**<font style="color:#18191B">5.稳定安全</font>** 
-所有API均是无状态化，并且所属领域只在当前页面，保证了极限状态下堆API的使用各个页面之间互相不影响。并且对方法进行监控、以及方法调用权限管理等。   
+**<font style="color:#18191B">1.API一致性</font>**    
+各跨平台、以及多核浏览器可使用一致化API，包括对容器的处理。  
+**<font style="color:#18191B">2.灵活扩展</font>**   
+可灵活接入各跨平台技术方案，且沉淀的API不受影响。比如，对浏览器的操作包括hybrid容器，业务自定义webview、以及weex中的webview。  
+**<font style="color:#18191B">3.高内聚、低耦合</font>**   
+所有方法体功能性代码均只限制在该类扩展中方法类文件中，比如对webview操作相关代码也只能在该方法体的分类文件中，不会将大量的功能性代码放入到主体文件中，增强维护性。  
+**<font style="color:#18191B">4.轻量无状态</font>**   
+以方法体的方式进行描述，而非业界Module的方式（不会造成大量的Module独享常驻App），方法体的生命周期，仅在方法调用开始到结果返回，无状态化保证了同一个方法多次调用的安全性。   
+**<font style="color:#18191B">5.稳定安全</font>**    
+所有API均是无状态化，并且所属领域只在当前页面，保证了极限状态下堆API的使用各个页面之间互相不影响。并且对方法进行监控、以及方法调用权限管理等。    
 
 #### （三）待优化点  
 **<font style="color:#18191B">1.线程模型优化 </font>**  
@@ -317,7 +317,7 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
 **<font style="color:#18191B">逻辑复杂：</font>**ui扩展逻辑功能需与wk保持一致，业务无感知切换浏览器；离线涉及并发下载队列、资源持久化与缓存、数据一致性、资源清理、请求拦截、极限条件下容错处理等等细节，逻辑复杂。  
 **<font style="color:#18191B">团队协作：</font>**4个同学（其中一名同学刚入职对Swfit不熟悉，只有我自己熟悉离线与Hybrid），分层难易程度协作分工。  
 **<font style="color:#18191B">开发效率：</font>**5000+行代码，从OC版本转换到Swfit版本一周（5个工作日）完成提交到业务团队。  
-**<font style="color:#18191B">质量保证：</font>**未占用测试资源，所有内部H5业务均使用离线上线后未出现问题。  
+**<font style="color:#18191B">质量保证：</font>**未占用测试资源，所有内部H5业务均使用离线上线后未出现问题。    
 
 
      
