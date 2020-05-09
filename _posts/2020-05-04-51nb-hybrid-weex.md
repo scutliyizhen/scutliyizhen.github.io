@@ -249,7 +249,7 @@ PG底层逻辑层默认使用子线程，需要读取上层容器URL，直接调
     </tbody>
 </table>  
 
-**<font style="color:#0F7290">2.PG监控告警</font>**
+**<font style="color:#0F7290">2.监控告警</font>**
 <table>
     <thead>
         <tr>
