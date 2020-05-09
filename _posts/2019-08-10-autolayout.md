@@ -62,7 +62,7 @@ tags:
 <table>
     <tbody>
         <tr>
-            <td><img src="/Resources/Posts/uotlayout/1.png"/></td>
+            <td><img src="/Resources/Posts/auotlayout/1.png"/></td>
         </tr>
     </tbody>
 </table>
@@ -149,7 +149,7 @@ AutoLayout  是一个强大的描述性系统，它的特点主要有：
 <table>
     <tbody>
         <tr>
-            <td><img src="/Resources/Posts/uotlayout/2.png"/></td>
+            <td><img src="/Resources/Posts/auotlayout/2.png"/></td>
         </tr>
     </tbody>
 </table>
@@ -205,7 +205,7 @@ v1.height表示成n1;
 <table>
     <tbody>
         <tr>
-            <td><img src="/Resources/Posts/uotlayout/3.png"/></td>
+            <td><img src="/Resources/Posts/auotlayout/3.png"/></td>
         </tr>
     </tbody>
 </table>
@@ -213,7 +213,7 @@ v1.height表示成n1;
 <table>
     <tbody>
         <tr>
-            <td><img src="/Resources/Posts/uotlayout/4.png"/></td>
+            <td><img src="/Resources/Posts/auotlayout/4.png"/></td>
         </tr>
     </tbody>
 </table>
@@ -221,7 +221,7 @@ v1.height表示成n1;
 <table>
     <tbody>
         <tr>
-            <td><img src="/Resources/Posts/uotlayout/5.png"/></td>
+            <td><img src="/Resources/Posts/auotlayout/5.png"/></td>
         </tr>
     </tbody>
 </table>
@@ -229,7 +229,7 @@ v1.height表示成n1;
 <table>
     <tbody>
         <tr>
-            <td><img src="/Resources/Posts/uotlayout/6.png"/></td>
+            <td><img src="/Resources/Posts/auotlayout/6.png"/></td>
         </tr>
     </tbody>
 </table>现在已经将自动布局一步步抽象为数学公式，那么对视图的布局其实就是对线性方程组的求解。因此，AutoLayout自动布局系统的对视图布局的过程实质上就是对线性方程组进行求解的过程。 
@@ -243,7 +243,7 @@ v1.height表示成n1;
 <table>
     <tbody>
         <tr>
-            <td><img src="/Resources/Posts/uotlayout/7.png"/></td>
+            <td><img src="/Resources/Posts/auotlayout/7.png"/></td>
         </tr>
     </tbody>
 </table>
