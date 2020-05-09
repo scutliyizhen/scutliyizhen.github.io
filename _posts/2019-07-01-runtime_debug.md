@@ -169,13 +169,13 @@ ps:选择objc-My Mac模式，然后点击run，不要选择debug-objc和mark模�
     </tbody>
 </table>
 
-配置动态库的路径出现错误，如果修改运行脚本时，需要注意以下几方面
-**<font style="color:#18191B">（1）修改完运行脚本，需要关闭xcode重新启动</font>**
-**<font style="color:#18191B">（2）重新启动xcode后，执行clean</font>**
-**<font style="color:#18191B">（3）执行Build</font>**
-**<font style="color:#18191B">（4）执行run</font>**
-最好按照这个步骤，否则修改后的脚本不起作用。
-这里用的是绝对路径，当然也可以使用相对路径（@rpath,@loader_path, @executable_path）。
+配置动态库的路径出现错误，如果修改运行脚本时，需要注意以下几方面   
+**<font style="color:#18191B">（1）修改完运行脚本，需要关闭xcode重新启动</font>**  
+**<font style="color:#18191B">（2）重新启动xcode后，执行clean</font>**  
+**<font style="color:#18191B">（3）执行Build</font>**  
+**<font style="color:#18191B">（4）执行run</font>**  
+最好按照这个步骤，否则修改后的脚本不起作用。  
+这里用的是绝对路径，当然也可以使用相对路径（@rpath,@loader_path, @executable_path）。   
 
 ####  3.Debug TestMac 逐步调试进入runtime 源码
 <table>
