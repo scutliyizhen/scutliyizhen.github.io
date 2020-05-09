@@ -114,13 +114,13 @@ v2起始x坐标为 190,目标x坐标为230， 那么230/190=1.21.
 为了解决以上问题，AutoLayout诞生了。   
 
 ####  2.autoLayout概念
-从英语单词字面的意思理解就是“自动布局”。那怎么才算是“自动”布局呢？那以前的frame,autoresizingMask到底算不算“自动”布局？我个人的理解是:
-1).frame肯定不是“自动”布局，因为 View的坐标与长宽都是写死的，当父视图或者屏幕发生变化时，view在其父视图中的相对位置或者相对大小都不会跟随发生变化，此时当其父view或者兄弟view发生变化时，其之前的相对关系不能很好的保留，不能 达到我们想要的布局效果。
-2).autoresizingMask，应该可以说是半自动化得布局方式，之所以说是“半”自动化，因为这种布局方式在一定程度上解决了view跟随其父view的变化而自动布局。比如当父view的宽度增大的时候，子view只要设置UIViewAutoresizingFlexibleWidth，子view就能按照比例跟随父view放缩。但是它的功能是很受限制的，它不能解决屏幕发生偏转、兄弟视图之间相对关系保持不变的布局。因此说autoresizingMask只能说是半自动化的布局，不过应该说“半”自动化都算不上。它的功能与autoLayout是远远不能提并论的。
-3).Autolayout是iOS6引入的新特性,随着iOS设备尺寸逐渐碎片化，纯粹的hard code方式UI布局将会走向死角，而autoresizing方式也有其局限性，因此无论如何autolayout都将成为IOS开发中 UI布局的重要方式。
-AutoLayout给开发者提供了一种全新的界面布局方式，自动布局是一个强大的、灵活的描述性系统。它描述了视图和他们的内容是如何关联，他们和他们所占据的窗口或者父视图之间如何关联，视图与兄弟视图等之间是如何关联。这种布局方式完全是通过视图之间的“联系”来描述视图的布局，通过解析这些关联的关系来布局每一个视图，这样当一个视图发生变化时，只要关联关系规则不发生变化，那么其他视图也会跟随发生变化，继续与这个发生变化的视图保持原来的关系，这就达到了自动布局的效果。
-个人对AuatoLayout的理解，其本质是开发者描述了视图之间的“关系”，则自动布局系统根据这些“关系”计算视图的frame。因此，最终视图的位置与大小还是由frame来决定，只不过是视图的frame不再是由开发者用硬编码的方式写死，而是根据关系动态被计算。
-AutoLayout  是一个强大的描述性系统，它的特点主要有：
+从英语单词字面的意思理解就是“自动布局”。那怎么才算是“自动”布局呢？那以前的frame,autoresizingMask到底算不算“自动”布局？我个人的理解是:   
+1).frame肯定不是“自动”布局，因为 View的坐标与长宽都是写死的，当父视图或者屏幕发生变化时，view在其父视图中的相对位置或者相对大小都不会跟随发生变化，此时当其父view或者兄弟view发生变化时，其之前的相对关系不能很好的保留，不能 达到我们想要的布局效果。    
+2).autoresizingMask，应该可以说是半自动化得布局方式，之所以说是“半”自动化，因为这种布局方式在一定程度上解决了view跟随其父view的变化而自动布局。比如当父view的宽度增大的时候，子view只要设置UIViewAutoresizingFlexibleWidth，子view就能按照比例跟随父view放缩。但是它的功能是很受限制的，它不能解决屏幕发生偏转、兄弟视图之间相对关系保持不变的布局。因此说autoresizingMask只能说是半自动化的布局，不过应该说“半”自动化都算不上。它的功能与autoLayout是远远不能提并论的。    
+3).Autolayout是iOS6引入的新特性,随着iOS设备尺寸逐渐碎片化，纯粹的hard code方式UI布局将会走向死角，而autoresizing方式也有其局限性，因此无论如何autolayout都将成为IOS开发中 UI布局的重要方式。    
+AutoLayout给开发者提供了一种全新的界面布局方式，自动布局是一个强大的、灵活的描述性系统。它描述了视图和他们的内容是如何关联，他们和他们所占据的窗口或者父视图之间如何关联，视图与兄弟视图等之间是如何关联。这种布局方式完全是通过视图之间的“联系”来描述视图的布局，通过解析这些关联的关系来布局每一个视图，这样当一个视图发生变化时，只要关联关系规则不发生变化，那么其他视图也会跟随发生变化，继续与这个发生变化的视图保持原来的关系，这就达到了自动布局的效果。    
+个人对AuatoLayout的理解，其本质是开发者描述了视图之间的“关系”，则自动布局系统根据这些“关系”计算视图的frame。因此，最终视图的位置与大小还是由frame来决定，只不过是视图的frame不再是由开发者用硬编码的方式写死，而是根据关系动态被计算。   
+AutoLayout  是一个强大的描述性系统，它的特点主要有：   
 - **<font style="color:#0F7290">（1）声明性的</font>**   
 也就是开发者描述界面时不需要关心规则是如何实现的，只要描述界面的布局即可，视图的frame由AutoLayout来计算。  
 - **<font style="color:#0F7290">（2）集中性的</font>**  
@@ -132,7 +132,7 @@ AutoLayout  是一个强大的描述性系统，它的特点主要有：
 - **<font style="color:#0F7290">（5）本地化的</font>**    
 《AutoLayout开发秘籍》中对这个特性的描述是：使用AutoLayout可以征服世界，它在维护界面完整性时，适应不同的单词或词组长度。  
 **<font style="color:#0F7290">（6）表达性的</font>**  
-使用AutoLayout可以表达比 旧的spring-strut更多更复杂的关系。自动布局不仅仅可以“吸附这条边”、“沿着坐标轴改变尺寸大小”，它还可以表示一个视图与另一个视图的关联方式，不仅仅只是视图与父视图的关系。 
+使用AutoLayout可以表达比 旧的spring-strut更多更复杂的关系。自动布局不仅仅可以“吸附这条边”、“沿着坐标轴改变尺寸大小”，它还可以表示一个视图与另一个视图的关联方式，不仅仅只是视图与父视图的关系。   
 **<font style="color:#0F7290">（7）增量式的</font>**   
 开发者可以根据自己的时间表随时使用AutoLayout, 因为自动布局开发者可以在项目中完全使用spring-strut,  或者完全使用自动布局，或者是两者的混合使用。 
 
@@ -160,13 +160,10 @@ v1.frame = CGRectMake(100,100,70,65)，系统会根据此框架将v1视图绘制
  
 ####  2.举例autoLayout解释原理  
 使用VL语言描述视图的约束：  
-(1).[v addConstraints:[NSLayoutConstrain constraintsWithVisualFormat:@“H:|-100-[v1(70)]-20-[v2(v1)]-(>=0)-|” options:NSLayoutFormatAlignAllTop metrics:nil views:NSDictioaryOfVariableBindings(v1,v2)]];   
-
-(2). [v addConstraint:[NSLayoutConstraint constrintWithItem:v2 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:v1 attribute:NSLayoutAttributeHeight multiplayier:1.0 constant:0]];   
-
-(3).[v addConstraints:[NSLayoutConstrain constraintsWithVisualFormat:@"V:|-100-[v1(65)]-20-[v3(v1)]-(>=0)-|"  options:NSLayoutFormatAlignAllLeading metrics:nil views:NSDictioaryOfVariableBindings(v1,v3)]];   
-
-(4).[v addConstraint:[NSLayoutConstraint constrintWithItem:v3 attribute:NSLayoutAttributeTrailling relatedBy:NSLayoutRelationEqual toItem:v2 attribute:NSLayoutAttributeTrailling multiplayier:1.0 constant:0]];  
+(1).[v addConstraints:[NSLayoutConstrain constraintsWithVisualFormat:@“H:|-100-[v1(70)]-20-[v2(v1)]-(>=0)-|” options:NSLayoutFormatAlignAllTop metrics:nil views:NSDictioaryOfVariableBindings(v1,v2)]];      
+(2). [v addConstraint:[NSLayoutConstraint constrintWithItem:v2 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:v1 attribute:NSLayoutAttributeHeight multiplayier:1.0 constant:0]];      
+(3).[v addConstraints:[NSLayoutConstrain constraintsWithVisualFormat:@"V:|-100-[v1(65)]-20-[v3(v1)]-(>=0)-|" options:NSLayoutFormatAlignAllLeading metrics:nil views:NSDictioaryOfVariableBindings(v1,v3)]];       
+(4).[v addConstraint:[NSLayoutConstraint constrintWithItem:v3 attribute:NSLayoutAttributeTrailling relatedBy:NSLayoutRelationEqual toItem:v2 attribute:NSLayoutAttributeTrailling multiplayier:1.0 constant:0]];    
  
 ####  3.通过举例抽象出自动布局数学公式  
 注：视图的frame参数描述如下：   
