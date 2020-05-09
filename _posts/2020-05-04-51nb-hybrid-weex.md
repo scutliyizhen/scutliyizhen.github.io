@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      跨平台架构演进 
-date:       2019-07-01
+title:      51信用卡跨平台架构演进 
+date:       2020-05-04
 author:     robertyzli
 header-img: Resources/Posts/liyizhen_blog_cross_platform_bg.jpg
 catalog: true
@@ -60,7 +60,7 @@ tags:
 
 &ensp;&ensp;&ensp;&ensp;自2015年Facebook开源首个跨平台UI框架<font style="color:#0F7290">ReactNative(RN)</font>，到2016年阿里开源<font style="color:#0F7290">Weex</font>，2017年Google推出<font style="color:#0F7290">Flutter</font>跨平台UI框架。跨平台解决方案在移动端正处于蓬勃发展的状态，而目前大部分企业基本都是原生与跨平台的混合开发模式，无论是业务需要还是移动平台技术的差异特性，都很难做到完全跨平台。然而，混合开发模式下的开发会面临更多的问题。
 
-&ensp;&ensp;&ensp;&ensp;2017年我进入51信用卡，当时客户端与前端使用的是Hybrid混合开发模式。在51的两年基本上就是处于不断填坑状态，开始接触WebKit的时候Hybrid本身并没有架构的概念，很多代码基本都是以功能逻辑融合在一起，每当新增需求都很困难担心改动点是否全面有遗漏；而当Weex跨平台接入之后又依赖Hybrid，出现了运行时安全、耦合依赖等问题，本文会详细阐述遇到的实际问题以及是如何优化架构解决问题。
+&ensp;&ensp;&ensp;&ensp;2017年我进入51信用卡，当时客户端与前端使用的是Hybrid混合开发模式。2017年年中开始负责Hybrid，2018年年中开始接手Weex负责整个跨平台（Hybrid与Weex），主要负责解决Weex框架源码问题以及基础能力建设。**<font style="color:#FF005D">2018年跨平台支持团队在100人+</font>**（前端团队80人左右，客户端团队50人左右），支持4个App团队（**<font style="color:#FF005D">51信用卡App注册用户量7000多W</font>**）。在51的三年基本上就是处于不断填坑状态，开始接触WebKit的时候Hybrid本身并没有架构的概念，很多代码基本都是以功能逻辑融合在一起，每当新增需求都很困难担心改动点是否全面有遗漏；而当Weex跨平台接入之后又依赖Hybrid，出现了运行时安全、耦合依赖等问题，本文会详细阐述遇到的实际问题以及是如何优化架构解决问题。
 
 ###  一.目标体现
 **<font style="color:#FF005D">总体目标：</font>**跨平台层作为前端与Native的中间混合层，主要目标是为Hybrid/Weex（或者其他跨平台方案）**<font style="color:#0F7290">提供更好的服务能力或者互动能力</font>**（比如获取地理位置信息或者设置容器导航标题与按钮等等）。     

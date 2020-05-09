@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      从数学角度来看IOS中的AutoLayout布局
+title:      从数学角度来看iOS中的AutoLayout布局
 date:       2019-08-10
 author:     robertyzli
 header-img: Resources/Posts/liyzhen_blog_autolayout_bg.png
